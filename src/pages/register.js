@@ -1,5 +1,16 @@
+import { registerUser } from "../api/auth.js";
+
+// Validation variables:
+const emailError = document.createElement("p");
+emailError.id = "emailError";
+const usernameError = document.createElement("p");
+usernameError.id = "usernameError";
+const passwordError = document.createElement("p");
+passwordError.id = "passwordError";
+
 // DOM manipulation
 const container = document.getElementById("container");
+const status = document.createElement("p");
 
 const registerForm = document.createElement("form");
 registerForm.className = "register-form";
@@ -49,10 +60,15 @@ login.href = "../index.html";
 
 registerForm.appendChild(email);
 registerForm.appendChild(emailInput);
+registerForm.appendChild(emailError);
 registerForm.appendChild(username);
 registerForm.appendChild(usernameInput);
+registerForm.appendChild(usernameError);
 registerForm.appendChild(password);
 registerForm.appendChild(passwordInput);
+registerForm.appendChild(passwordError);
 registerForm.appendChild(registerBtn);
 container.appendChild(registerForm);
 container.appendChild(login);
+
+// Validation functions:
