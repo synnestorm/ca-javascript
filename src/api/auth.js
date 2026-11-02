@@ -3,8 +3,9 @@
 const API_BASE_URL = "https://v2.api.noroff.dev";
 const loginUrl = `${API_BASE_URL}/auth/login`;
 const registerUrl = `${API_BASE_URL}/auth/register`;
+const apiKeyUrl = `${API_BASE_URL}/auth/create-api-key`;
 
-// API async function, login:
+// API async function, login authentication:
 export async function loginUser(email, password) {
   try {
     console.log("Login request:", {
@@ -33,7 +34,7 @@ export async function loginUser(email, password) {
   }
 }
 
-// API async function, register:
+// API async function, register authentication:
 
 export async function registerUser(username, email, password) {
   try {
@@ -53,6 +54,28 @@ export async function registerUser(username, email, password) {
     }
     const data = await response.json();
     return true;
+  } catch (error) {
+    console.error("Failed to fetch authentication.", error);
+    return false;
+  }
+}
+
+// create API key
+
+export async function apiKey() {
+  try {
+    const response = await fetch(apiKeyUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    localStorage.setItem("apiKey", data.data.key);
+    return data.data.key;
   } catch (error) {
     console.error("Failed to fetch authentication.", error);
     return false;
