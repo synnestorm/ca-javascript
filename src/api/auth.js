@@ -7,6 +7,10 @@ const registerUrl = `${API_BASE_URL}/auth/register`;
 // API async function, login:
 export async function loginUser(email, password) {
   try {
+    console.log("Login request:", {
+      email: email,
+      passwordType: typeof password,
+    });
     const response = await fetch(loginUrl, {
       method: "POST",
       headers: {
@@ -45,8 +49,13 @@ export async function registerUser(username, email, password) {
       }),
     });
     if (!response.ok) {
+      // testing if successfull
+      const errorData = await response.json();
+      console.log("Server error details:", errorData);
       return false;
     }
+    // testing if successful:
+    console.log("Registration successful! Status:", response.status);
     const data = await response.json();
     return true;
   } catch (error) {

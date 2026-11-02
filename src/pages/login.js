@@ -15,10 +15,9 @@ email.setAttribute("for", "email");
 
 const emailInput = document.createElement("input");
 emailInput.placeholder = "email@koble.com";
-emailInput.type = "text";
+emailInput.type = "email";
 emailInput.name = "email";
 emailInput.id = "email";
-emailInput.maxLength = "25";
 emailInput.required = true;
 
 const password = document.createElement("label");
@@ -41,6 +40,7 @@ const register = document.createElement("a");
 register.textContent = "Create account here!";
 register.href = "pages/register.html";
 
+loginForm.appendChild(status);
 loginForm.appendChild(email);
 loginForm.appendChild(emailInput);
 loginForm.appendChild(password);
@@ -62,9 +62,9 @@ loginForm.addEventListener("submit", async function (event) {
     status.innerHTML = "Login successful! Redirecting...";
     status.className = "success";
 
-    setTimeout(function () {
-      window.location.href = "pages/posts.html";
-    }, 1000);
+    // setTimeout(function () {
+    //   window.location.href = "pages/posts.html";
+    //  }, 1000);
   } else {
     status.innerHTML = "Invalid email or password.";
     status.className = "error";
