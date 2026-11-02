@@ -136,15 +136,12 @@ registerForm.addEventListener("submit", async function (event) {
       status.innerHTML = "Account created successfully! Redirecting...";
       status.className = "success";
 
-      //  setTimeout(function () {
-      //   window.location.href = "../index.html";
-      //  }, 1000);
+      setTimeout(function () {
+        window.location.href = "../../index.html";
+      }, 1000);
     } else {
       status.innerHTML = "Registration failed. Please try again.";
       status.className = "error";
     }
-  } else {
-    status.innerHTML = "Please correct the highlighted errors.";
-    status.className = "error";
   }
 });

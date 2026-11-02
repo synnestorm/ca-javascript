@@ -49,13 +49,8 @@ export async function registerUser(username, email, password) {
       }),
     });
     if (!response.ok) {
-      // testing if successfull
-      const errorData = await response.json();
-      console.log("Server error details:", errorData);
       return false;
     }
-    // testing if successful:
-    console.log("Registration successful! Status:", response.status);
     const data = await response.json();
     return true;
   } catch (error) {

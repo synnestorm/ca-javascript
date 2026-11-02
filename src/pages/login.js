@@ -62,9 +62,9 @@ loginForm.addEventListener("submit", async function (event) {
     status.innerHTML = "Login successful! Redirecting...";
     status.className = "success";
 
-    // setTimeout(function () {
-    //   window.location.href = "pages/posts.html";
-    //  }, 1000);
+    setTimeout(function () {
+      window.location.href = "pages/posts.html";
+    }, 1000);
   } else {
     status.innerHTML = "Invalid email or password.";
     status.className = "error";
