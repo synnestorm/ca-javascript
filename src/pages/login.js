@@ -16,6 +16,19 @@ usernameInput.id = "username";
 usernameInput.maxLength = "25";
 usernameInput.required = true;
 
+const password = document.createElement("label");
+password.textContent = "Password:";
+password.setAttribute("for", "password");
+
+const passwordInput = document.createElement("input");
+passwordInput.type = "password";
+passwordInput.name = "password";
+passwordInput.id = "password";
+passwordInput.maxLength = "25";
+passwordInput.required = true;
+
 loginForm.appendChild(username);
 loginForm.appendChild(usernameInput);
+loginForm.appendChild(password);
+loginForm.appendChild(passwordInput);
 container.appendChild(loginForm);
