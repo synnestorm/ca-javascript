@@ -1,4 +1,4 @@
-import { loginUser } from "../api/auth.js";
+import { loginUser, apiKey } from "../api/auth.js";
 
 // DOM manipulation
 const container = document.getElementById("container");
@@ -59,6 +59,7 @@ loginForm.addEventListener("submit", async function (event) {
   const success = await loginUser(enteredEmail, enteredPassword);
 
   if (success) {
+    await apiKey();
     status.innerHTML = "Login successful! Redirecting...";
     status.className = "success";
 
