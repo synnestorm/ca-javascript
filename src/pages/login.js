@@ -32,9 +32,14 @@ loginBtn.className = "login-btn";
 loginBtn.textContent = "Sign In";
 loginBtn.type = "submit";
 
+const register = document.createElement("a");
+register.textContent = "Create account here!";
+register.href = "pages/register.html";
+
 loginForm.appendChild(username);
 loginForm.appendChild(usernameInput);
 loginForm.appendChild(password);
 loginForm.appendChild(passwordInput);
 loginForm.appendChild(loginBtn);
 container.appendChild(loginForm);
+container.appendChild(register);
