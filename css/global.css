@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--text), Arial, Helvetica, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--font-two);
+}
+
+h1 {
+  font-family: var(--header), Arial, Helvetica, sans-serif;
+  color: var(--font-one);
+}
