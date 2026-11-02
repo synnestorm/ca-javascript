@@ -27,8 +27,14 @@ passwordInput.id = "password";
 passwordInput.maxLength = "25";
 passwordInput.required = true;
 
+const loginBtn = document.createElement("button");
+loginBtn.className = "login-btn";
+loginBtn.textContent = "Sign In";
+loginBtn.type = "submit";
+
 loginForm.appendChild(username);
 loginForm.appendChild(usernameInput);
 loginForm.appendChild(password);
 loginForm.appendChild(passwordInput);
+loginForm.appendChild(loginBtn);
 container.appendChild(loginForm);
