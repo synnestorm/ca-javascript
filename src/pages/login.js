@@ -1,20 +1,25 @@
+import { loginUser } from "../api/auth.js";
+
 // DOM manipulation
 const container = document.getElementById("container");
+
+const status = document.createElement("p");
+status.id = "status";
 
 const loginForm = document.createElement("form");
 loginForm.className = "login-form";
 
-const username = document.createElement("label");
-username.textContent = "Username:";
-username.setAttribute("for", "username");
+const email = document.createElement("label");
+email.textContent = "E-mail:";
+email.setAttribute("for", "email");
 
-const usernameInput = document.createElement("input");
-usernameInput.placeholder = "koble2026";
-usernameInput.type = "text";
-usernameInput.name = "username";
-usernameInput.id = "username";
-usernameInput.maxLength = "25";
-usernameInput.required = true;
+const emailInput = document.createElement("input");
+emailInput.placeholder = "email@koble.com";
+emailInput.type = "text";
+emailInput.name = "email";
+emailInput.id = "email";
+emailInput.maxLength = "25";
+emailInput.required = true;
 
 const password = document.createElement("label");
 password.textContent = "Password:";
@@ -36,10 +41,32 @@ const register = document.createElement("a");
 register.textContent = "Create account here!";
 register.href = "pages/register.html";
 
-loginForm.appendChild(username);
-loginForm.appendChild(usernameInput);
+loginForm.appendChild(email);
+loginForm.appendChild(emailInput);
 loginForm.appendChild(password);
 loginForm.appendChild(passwordInput);
 loginForm.appendChild(loginBtn);
 container.appendChild(loginForm);
 container.appendChild(register);
+
+// Event Listener:
+
+loginForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  status.innerHTML = "";
+  const enteredEmail = emailInput.value.trim();
+  const enteredPassword = passwordInput.value.trim();
+  const success = await loginUser(enteredEmail, enteredPassword);
+
+  if (success) {
+    status.innerHTML = "Login successful! Redirecting...";
+    status.className = "success";
+
+    setTimeout(function () {
+      window.location.href = "pages/posts.html";
+    }, 1000);
+  } else {
+    status.innerHTML = "Invalid email or password.";
+    status.className = "error";
+  }
+});
