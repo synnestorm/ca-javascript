@@ -6,15 +6,11 @@ const nameError = document.getElementById("nameError");
 const passwordError = document.getElementById("passwordError");
 
 // DOM manipulation
-const container = document.getElementById("container");
-const status = document.createElement("p");
+const status = document.getElementById("status");
 const registerForm = document.getElementById("register-form");
 const email = document.getElementById("email");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
-
-registerForm.appendChild(status);
-container.appendChild(login);
 
 // Validation functions:
 
