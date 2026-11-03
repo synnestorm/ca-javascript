@@ -1,0 +1,19 @@
+#container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto 0;
+  gap: 20px;
+}
+.post-card {
+  width: 100%;
+  max-width: 670px;
+  height: auto;
+  background-color: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px;
+}
