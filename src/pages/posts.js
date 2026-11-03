@@ -1,6 +1,7 @@
 import { fetchPosts } from "../api/posts.js";
 
 const container = document.getElementById("container");
+const loader = document.getElementById("loader");
 
 function showPosts(posts) {
   if (!posts || posts.length === 0) {
@@ -44,8 +45,19 @@ function showPosts(posts) {
   });
 }
 
-const posts = await fetchPosts();
+loader.style.display = "flex";
 
-if (posts) {
-  showPosts(posts);
+try {
+  const posts = await fetchPosts();
+
+  if (posts) {
+    showPosts(posts);
+  } else {
+    container.textContent = "Could not load posts. Please try again later!";
+  }
+} catch (error) {
+  console.error("Error loading posts:", error);
+  container.textContent = "Something went wrong.";
+} finally {
+  loader.style.display = "none";
 }
