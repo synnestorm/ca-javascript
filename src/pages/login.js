@@ -1,24 +1,19 @@
 import { loginUser, apiKey } from "../api/auth.js";
 
 // DOM manipulation
-const container = document.getElementById("container");
 const loginForm = document.getElementById("login-form");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 
-const status = document.createElement("p");
-status.id = "status";
-
-loginForm.appendChild(status);
-container.appendChild(register);
+const status = document.getElementById("status");
 
 // Event Listener:
 
 loginForm.addEventListener("submit", async function (event) {
   event.preventDefault();
-  status.innerHTML = "";
+  status.textContent = "";
   const enteredEmail = email.value.trim();
-  const enteredPassword = password.value.trim();
+  const enteredPassword = password.value;
   const success = await loginUser(enteredEmail, enteredPassword);
 
   if (success) {
@@ -32,5 +27,6 @@ loginForm.addEventListener("submit", async function (event) {
   } else {
     status.textContent = "Invalid email or password.";
     status.className = "error";
+    status.style.color = "rgb(202, 70, 70)";
   }
 });
