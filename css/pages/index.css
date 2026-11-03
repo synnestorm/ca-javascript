@@ -1,0 +1,56 @@
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+label {
+  display: block;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+fieldset {
+  border: none;
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--card-color);
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+button {
+  display: block;
+  padding: 10px 40px;
+  font-size: 17px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--button-one);
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: rgb(228, 155, 126);
+}
+
+.login,
+.register {
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
