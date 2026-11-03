@@ -10,7 +10,7 @@ function showPosts(posts) {
   container.innerHTML = "";
   posts.forEach((post) => {
     const postCard = document.createElement("div");
-    postCard.className = "posts-card";
+    postCard.className = "post-card";
 
     const postTitle = document.createElement("h2");
     postTitle.className = "post-title";
@@ -23,6 +23,14 @@ function showPosts(posts) {
     const postAuthor = document.createElement("p");
     postAuthor.className = "post-author";
     postAuthor.textContent = post.author.name;
+
+    if (post.media && post.media.url) {
+      const postMedia = document.createElement("img");
+      postMedia.className = "post-media";
+      postMedia.src = post.media.url;
+      postMedia.alt = post.title;
+      postCard.appendChild(postMedia);
+    }
 
     postCard.appendChild(postAuthor);
     postCard.appendChild(postTitle);
