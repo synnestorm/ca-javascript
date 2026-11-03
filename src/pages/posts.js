@@ -16,6 +16,10 @@ function showPosts(posts) {
     postTitle.className = "post-title";
     postTitle.textContent = post.title;
 
+    const postLink = document.createElement("a");
+    postLink.className = "post-link";
+    postLink.href = `post.html?id=${post.id}`;
+
     const postBody = document.createElement("p");
     postBody.className = "post-body";
     postBody.textContent = post.body;
@@ -33,7 +37,8 @@ function showPosts(posts) {
     }
 
     postCard.appendChild(postAuthor);
-    postCard.appendChild(postTitle);
+    postLink.appendChild(postTitle);
+    postCard.appendChild(postLink);
     postCard.appendChild(postBody);
     container.appendChild(postCard);
   });
