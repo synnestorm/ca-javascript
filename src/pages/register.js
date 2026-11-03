@@ -13,10 +13,6 @@ const email = document.getElementById("email");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
 
-const login = document.createElement("a");
-login.textContent = "Already have an account? Sign in here!";
-login.href = "../index.html";
-
 registerForm.appendChild(status);
 container.appendChild(login);
 

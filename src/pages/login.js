@@ -9,10 +9,6 @@ const password = document.getElementById("password");
 const status = document.createElement("p");
 status.id = "status";
 
-const register = document.createElement("a");
-register.textContent = "Create account here!";
-register.href = "pages/register.html";
-
 loginForm.appendChild(status);
 container.appendChild(register);
 
