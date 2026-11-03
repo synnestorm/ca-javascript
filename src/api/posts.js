@@ -22,3 +22,23 @@ export async function fetchPosts() {
     return false;
   }
 }
+
+export async function fetchSinglePost(id) {
+  const singlePostUrl = `${API_BASE_URL}/social/posts/${id}?_author=true&_comments=true&_reactions=true`;
+  try {
+    const response = await fetch(singlePostUrl, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "X-Noroff-API-Key": localStorage.getItem("apiKey"),
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Failed to fetch individual post!", error);
+    return false;
+  }
+}
