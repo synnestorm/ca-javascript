@@ -37,7 +37,16 @@
         <div class="btn-container">
             <button command="show-modal" commandfor="make-post">+ New Post</button>
             <dialog id="make-post">
-                <button commandfor="make-post" command="close">Close</button>
+                <form>
+                    <label for="title">Title:</label>
+                    <input id="title" name="title" type="text" placeholder="What do you want to share?" required>
+                    <label for="body">Body:</label>
+                    <textarea id="body" name="body" type="textarea" rows="5" cols="40" required></textarea>
+                    <label for="media">Image:</label>
+                    <input id="media" name="media" type="url">
+                    <button type="submit">Create Post</button>
+                </form>
+                <button commandfor="make-post" command="close" class="close">Close</button>
             </dialog>
         </div>
         <div id="container"></div>
