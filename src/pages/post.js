@@ -7,7 +7,6 @@ function showPost(post) {
     container.innerHTML = "Could not individual post.";
     return;
   }
-
   container.textContent = "";
 
   const postCard = document.createElement("div");
@@ -33,9 +32,40 @@ function showPost(post) {
     postCard.appendChild(postMedia);
   }
 
+  const commentHeader = document.createElement("h3");
+  commentHeader.textContent = "Comments:";
+
+  const commentSection = document.createElement("div");
+  commentSection.className = "comment-section";
+
+  if (post.comments.length === 0) {
+    const noComments = document.createElement("p");
+    noComments.textContent = "No comments yet!";
+    commentSection.appendChild(noComments);
+  } else {
+    post.comments.forEach((comment) => {
+      const commentCard = document.createElement("div");
+      commentCard.className = "comment-card";
+
+      const commentBody = document.createElement("p");
+      commentBody.className = "comment-body";
+      commentBody.textContent = comment.body;
+
+      const commentOwner = document.createElement("p");
+      commentOwner.className = "comment-owner";
+      commentOwner.textContent = `${comment.owner}: `;
+
+      commentCard.appendChild(commentOwner);
+      commentCard.appendChild(commentBody);
+      commentSection.appendChild(commentCard);
+    });
+  }
+
   postCard.appendChild(postAuthor);
   postCard.appendChild(postTitle);
   postCard.appendChild(postBody);
+  postCard.appendChild(commentHeader);
+  postCard.appendChild(commentSection);
   container.appendChild(postCard);
 }
 
