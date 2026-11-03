@@ -25,8 +25,26 @@
         <h1>.koble</h1>
     </header>
     <main>
-        <div id="container"></div>
+        <div id="container">
+            <form id="register-form">
+                <fieldset>
+                    <label for="email">E-mail:</label>
+                    <input id="email" name="email" type="email" placeholder="koble@stud.noroff.no" required>
+                    <p id="emailError"></p>
+                    <label for="username">Username:</label>
+                    <input id="username" name="username" type="text" placeholder="koble123" required>
+                    <p id="nameError"></p>
+                    <label for="password">Password:</label>
+                    <input id="password" name="password" type="password" maxlength="25" required>
+                    <p id="passwordError"></p>
+                    <button id="register-btn" type="submit">Create Account</button>
+                </fieldset>
+            </form>
+        </div>
     </main>
+    <footer>
+        <p>&copy; .koble</p>
+    </footer>
     <script type="module" src="../src/pages/register.js"></script>
 </body>
 
