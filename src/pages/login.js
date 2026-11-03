@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", async function (event) {
 
     setTimeout(function () {
       window.location.href = "pages/posts.html";
-    }, 1000);
+    }, 2000);
   } else {
     status.textContent = "Invalid email or password.";
     status.className = "error";
