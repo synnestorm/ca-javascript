@@ -8,10 +8,6 @@ const apiKeyUrl = `${API_BASE_URL}/auth/create-api-key`;
 // API async function, login authentication:
 export async function loginUser(email, password) {
   try {
-    console.log("Login request:", {
-      email: email,
-      passwordType: typeof password,
-    });
     const response = await fetch(loginUrl, {
       method: "POST",
       headers: {

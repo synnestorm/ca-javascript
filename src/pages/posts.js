@@ -1,7 +1,10 @@
-import { fetchPosts } from "../api/posts.js";
+import { fetchPosts, createPost } from "../api/posts.js";
 
 const container = document.getElementById("container");
 const loader = document.getElementById("loader");
+const createForm = document.getElementById("create-form");
+const status = document.getElementById("status");
+const titleError = document.getElementById("titleError");
 
 function showPosts(posts) {
   if (!posts || posts.length === 0) {
@@ -61,3 +64,49 @@ try {
 } finally {
   loader.style.display = "none";
 }
+
+// creating post and validation
+
+function showError(el, message) {
+  el.textContent = message;
+}
+
+function clearError(el) {
+  el.textContent = "";
+}
+
+function validateTitle() {
+  const value = title.value.trim();
+  if (value.length === 0) {
+    showError(titleError, "Title is required!");
+    return false;
+  }
+  clearError(titleError);
+  return true;
+}
+
+function validateForm() {
+  let okTitle = validateTitle();
+  return okTitle;
+}
+
+createForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  status.textContent = "";
+
+  if (validateForm()) {
+    const success = await createPost(title.value.trim());
+
+    if (success) {
+      status.textContent = "Post created successfully! Please wait...";
+      status.className = "success";
+
+      setTimeout(function () {
+        window.location.href = "posts.html";
+      }, 2000);
+    } else {
+      status.textContent = "Creating post failed. Please try again.";
+      status.className = "error";
+    }
+  }
+});
