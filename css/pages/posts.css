@@ -14,7 +14,8 @@
   margin: 50px auto 0;
   gap: 20px;
 }
-.post-card {
+.post-card,
+.comment-section {
   width: 100%;
   max-width: 670px;
   height: auto;
@@ -22,6 +23,17 @@
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 10px;
+  overflow: hidden;
+}
+
+.post-author {
+  font-size: 18px;
+  padding: 0 0 10px 5px;
+}
+
+.post-title {
+  font-size: 25px;
+  margin: 20px 0;
 }
 
 .post-media {
@@ -98,18 +110,10 @@ h3 {
   margin-left: 5px;
 }
 
-.comment-section {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
-}
-
 .comment-card {
   display: flex;
   align-items: baseline;
-  gap: 5px;
+  margin: 10px 0;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid var(--border-color);
@@ -121,4 +125,13 @@ h3 {
 
 .comment-body {
   font-style: italic;
+  padding-left: 4px;
+}
+
+.comment-section {
+  margin-bottom: 40px;
+}
+
+.no-comments {
+  padding: 5px;
 }

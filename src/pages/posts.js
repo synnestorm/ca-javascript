@@ -8,6 +8,7 @@ const delStatus = document.getElementById("del-status");
 const titleError = document.getElementById("titleError");
 
 function showPosts(posts) {
+  const loggedInUser = localStorage.getItem("username");
   if (!posts || posts.length === 0) {
     container.innerHTML = "Could not show all posts.";
     return;
@@ -31,7 +32,9 @@ function showPosts(posts) {
 
     const postAuthor = document.createElement("p");
     postAuthor.className = "post-author";
-    postAuthor.textContent = post.author.name;
+    postAuthor.textContent = `${post.author.name}:`;
+
+    postCard.appendChild(postAuthor);
 
     if (post.media && post.media.url) {
       const postMedia = document.createElement("img");
@@ -40,46 +43,45 @@ function showPosts(posts) {
       postMedia.alt = post.title;
       postCard.appendChild(postMedia);
     }
-
     const btnContainer = document.createElement("div");
     btnContainer.className = "btn-container";
 
-    const editBtn = document.createElement("button");
-    editBtn.className = "edit-btn";
-    editBtn.type = "button";
-    editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
+    if (post.author.name === loggedInUser) {
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-btn";
+      deleteBtn.type = "button";
+      deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
+      deleteBtn.addEventListener("click", async () => {
+        const success = await deletePost(post.id);
+        if (success) {
+          delStatus.textContent = "Post deleted! Refreshing...";
+          delStatus.className = "success";
 
-    editBtn.addEventListener("click", () => {});
+          setTimeout(function () {
+            window.location.href = "posts.html";
+          }, 1000);
+        } else {
+          delStatus.textContent = "Delete failed. Please try again.";
+          delStatus.className = "error";
+          setTimeout(function () {
+            delStatus.textContent = "";
+          }, 2000);
+        }
+      });
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "delete-btn";
-    deleteBtn.type = "button";
-    deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
+      const editBtn = document.createElement("button");
+      editBtn.className = "edit-btn";
+      editBtn.type = "button";
+      editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
+      editBtn.addEventListener("click", () => {});
 
-    deleteBtn.addEventListener("click", async () => {
-      const success = await deletePost(post.id);
-      if (success) {
-        delStatus.textContent = "Post deleted! Refreshing...";
-        delStatus.className = "success";
+      btnContainer.appendChild(deleteBtn);
+      btnContainer.appendChild(editBtn);
+    }
 
-        setTimeout(function () {
-          window.location.href = "posts.html";
-        }, 1000);
-      } else {
-        delStatus.textContent = "Delete failed. Please try again.";
-        delStatus.className = "error";
-        setTimeout(function () {
-          delStatus.textContent = "";
-        }, 2000);
-      }
-    });
-
-    postCard.appendChild(postAuthor);
     postLink.appendChild(postTitle);
     postCard.appendChild(postLink);
     postCard.appendChild(postBody);
-    btnContainer.appendChild(editBtn);
-    btnContainer.appendChild(deleteBtn);
     postCard.appendChild(btnContainer);
     container.appendChild(postCard);
   });
