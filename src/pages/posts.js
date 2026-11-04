@@ -86,8 +86,7 @@ function validateTitle() {
 }
 
 function validateForm() {
-  let okTitle = validateTitle();
-  return okTitle;
+  return validateTitle();
 }
 
 createForm.addEventListener("submit", async function (event) {
@@ -95,7 +94,20 @@ createForm.addEventListener("submit", async function (event) {
   status.textContent = "";
 
   if (validateForm()) {
-    const success = await createPost(title.value.trim());
+    const createBody = body.value.trim();
+    const mediaUrl = media.value.trim();
+
+    const createMedia = mediaUrl
+      ? {
+          url: mediaUrl,
+          alt: "This is an image created inside a post.",
+        }
+      : null;
+    const success = await createPost(
+      title.value.trim(),
+      createBody,
+      createMedia,
+    );
 
     if (success) {
       status.textContent = "Post created successfully! Please wait...";
