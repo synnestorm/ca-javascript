@@ -60,7 +60,6 @@ export async function createPost(title) {
     if (!response.ok) {
       throw new Error(`Error! Status: ${response.status}`);
     }
-    const data = await response.json();
     return true;
   } catch (error) {
     console.error("Failed to create post!", error);
