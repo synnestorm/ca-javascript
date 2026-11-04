@@ -1,3 +1,6 @@
+#del-status {
+  text-align: center;
+}
 .btn-container {
   margin-top: 100px;
 }
@@ -28,6 +31,29 @@
   object-fit: cover;
 }
 
+.edit-btn,
+.delete-btn {
+  background-color: var(--button-two);
+  color: var(--color-one);
+  padding: 5px 15px;
+  margin: 0;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  background-color: rgb(85, 109, 96);
+  color: var(--bg-color);
+}
+
+.btn-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: end;
+  gap: 10px;
+}
+
 dialog {
   position: fixed;
   inset: 0;
@@ -35,7 +61,7 @@ dialog {
   margin: auto;
   width: 100%;
   max-width: 750px;
-  height: 400px;
+  height: 420px;
   background-color: var(--card-color);
   border: 1px solid var(--border-color);
   color: var(--color-one);
