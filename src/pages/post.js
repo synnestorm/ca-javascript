@@ -1,8 +1,9 @@
-import { fetchSinglePost } from "../api/posts.js";
+import { fetchSinglePost, deletePost } from "../api/posts.js";
 
 const container = document.getElementById("container");
 
 function showPost(post) {
+  const loggedInUser = localStorage.getItem("username");
   if (!post) {
     container.innerHTML = "Could not individual post.";
     return;
@@ -22,7 +23,8 @@ function showPost(post) {
 
   const postAuthor = document.createElement("p");
   postAuthor.className = "post-author";
-  postAuthor.textContent = post.author.name;
+  postAuthor.textContent = `${post.author.name}:`;
+  postCard.appendChild(postAuthor);
 
   if (post.media && post.media.url) {
     const postMedia = document.createElement("img");
@@ -32,14 +34,60 @@ function showPost(post) {
     postCard.appendChild(postMedia);
   }
 
+  const btnContainer = document.createElement("div");
+  btnContainer.className = "btn-container";
+
+  if (post.author.name === loggedInUser) {
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.type = "button";
+    deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
+    deleteBtn.addEventListener("click", async () => {
+      const success = await deletePost(post.id);
+      if (success) {
+        delStatus.textContent = "Post deleted! Refreshing...";
+        delStatus.className = "success";
+
+        setTimeout(function () {
+          window.location.href = "posts.html";
+        }, 1000);
+      } else {
+        delStatus.textContent = "Delete failed. Please try again.";
+        delStatus.className = "error";
+        setTimeout(function () {
+          delStatus.textContent = "";
+        }, 2000);
+      }
+    });
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "edit-btn";
+    editBtn.type = "button";
+    editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
+    editBtn.addEventListener("click", () => {});
+
+    btnContainer.appendChild(deleteBtn);
+    btnContainer.appendChild(editBtn);
+  }
+
+  postCard.appendChild(postTitle);
+  postCard.appendChild(postBody);
+  postCard.appendChild(btnContainer);
+  container.appendChild(postCard);
+}
+
+function showComments(post) {
   const commentHeader = document.createElement("h3");
   commentHeader.textContent = "Comments:";
 
   const commentSection = document.createElement("div");
   commentSection.className = "comment-section";
 
-  if (post.comments.length === 0) {
+  commentSection.appendChild(commentHeader);
+
+  if (!post.comments || post.comments.length === 0) {
     const noComments = document.createElement("p");
+    noComments.className = "no-comments";
     noComments.textContent = "No comments yet!";
     commentSection.appendChild(noComments);
   } else {
@@ -57,16 +105,11 @@ function showPost(post) {
 
       commentCard.appendChild(commentOwner);
       commentCard.appendChild(commentBody);
+
       commentSection.appendChild(commentCard);
     });
   }
-
-  postCard.appendChild(postAuthor);
-  postCard.appendChild(postTitle);
-  postCard.appendChild(postBody);
-  postCard.appendChild(commentHeader);
-  postCard.appendChild(commentSection);
-  container.appendChild(postCard);
+  container.appendChild(commentSection);
 }
 
 const params = new URLSearchParams(window.location.search);
@@ -78,6 +121,7 @@ if (!id) {
   const post = await fetchSinglePost(id);
   if (post) {
     showPost(post);
+    showComments(post);
   } else {
     container.textContent = "Could not load post.";
   }
