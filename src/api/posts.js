@@ -43,7 +43,7 @@ export async function fetchSinglePost(id) {
   }
 }
 
-export async function createPost(title) {
+export async function createPost(title, body, media) {
   const createPostUrl = `${API_BASE_URL}/social/posts`;
   try {
     const response = await fetch(createPostUrl, {
@@ -55,6 +55,8 @@ export async function createPost(title) {
       },
       body: JSON.stringify({
         title: title,
+        ...(body && { body: body }),
+        ...(media && { media: media }),
       }),
     });
     if (!response.ok) {
