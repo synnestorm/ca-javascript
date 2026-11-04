@@ -70,7 +70,7 @@ export async function createPost(title, body, media) {
 }
 
 export async function deletePost(id) {
-  const createDeleteUrl = `${API_BASE_URL}/social/posts${id}`;
+  const createDeleteUrl = `${API_BASE_URL}/social/posts/${id}`;
   try {
     const response = await fetch(createDeleteUrl, {
       method: "DELETE",

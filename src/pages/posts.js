@@ -1,9 +1,10 @@
-import { fetchPosts, createPost } from "../api/posts.js";
+import { fetchPosts, createPost, deletePost } from "../api/posts.js";
 
 const container = document.getElementById("container");
 const loader = document.getElementById("loader");
 const createForm = document.getElementById("create-form");
 const status = document.getElementById("status");
+const delStatus = document.getElementById("del-status");
 const titleError = document.getElementById("titleError");
 
 function showPosts(posts) {
@@ -45,11 +46,33 @@ function showPosts(posts) {
 
     const editBtn = document.createElement("button");
     editBtn.className = "edit-btn";
+    editBtn.type = "button";
     editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
+
+    editBtn.addEventListener("click", () => {});
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
+    deleteBtn.type = "button";
     deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
+
+    deleteBtn.addEventListener("click", async () => {
+      const success = await deletePost(post.id);
+      if (success) {
+        delStatus.textContent = "Post deleted! Refreshing...";
+        delStatus.className = "success";
+
+        setTimeout(function () {
+          window.location.href = "posts.html";
+        }, 1000);
+      } else {
+        delStatus.textContent = "Delete failed. Please try again.";
+        delStatus.className = "error";
+        setTimeout(function () {
+          delStatus.textContent = "";
+        }, 2000);
+      }
+    });
 
     postCard.appendChild(postAuthor);
     postLink.appendChild(postTitle);
