@@ -68,3 +68,42 @@ export async function createPost(title, body, media) {
     return false;
   }
 }
+
+export async function deletePost() {
+  const createDeleteUrl = `${API_BASE_URL}/social/posts${id}`;
+  try {
+    const response = await fetch(createDeleteUrl, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "X-Noroff-API-Key": localStorage.getItem("apiKey"),
+      },
+    });
+    if (response.ok) {
+      throw new Error(`Error! Status: ${response.status}`);
+    }
+    return true;
+  } catch (error) {
+    console.error("Failed to delete post!", error);
+    return false;
+  }
+}
+
+/* const deletePost = async () => {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      console.log('Post deleted successfully.');
+    } else {
+      console.error('Failed to delete post. Status:', response.status);
+    }
+  } catch (error) {
+    console.error('Error deleting post:', error);
+  }
+};
+
+deletePost(); */
