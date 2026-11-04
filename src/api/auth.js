@@ -23,6 +23,7 @@ export async function loginUser(email, password) {
     }
     const data = await response.json();
     localStorage.setItem("authToken", data.data.accessToken);
+    localStorage.setItem("username", data.data.name);
     return true;
   } catch (error) {
     console.error("Failed to fetch authentication.", error);
