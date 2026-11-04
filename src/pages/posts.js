@@ -40,10 +40,24 @@ function showPosts(posts) {
       postCard.appendChild(postMedia);
     }
 
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "btn-container";
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "edit-btn";
+    editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete-btn";
+    deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
+
     postCard.appendChild(postAuthor);
     postLink.appendChild(postTitle);
     postCard.appendChild(postLink);
     postCard.appendChild(postBody);
+    btnContainer.appendChild(editBtn);
+    btnContainer.appendChild(deleteBtn);
+    postCard.appendChild(btnContainer);
     container.appendChild(postCard);
   });
 }
