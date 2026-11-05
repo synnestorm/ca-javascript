@@ -32,21 +32,26 @@ function showPosts(posts) {
 
     const postAuthor = document.createElement("p");
     postAuthor.className = "post-author";
-    postAuthor.textContent = `${post.author.name}:`;
+    postAuthor.textContent = post.author ? `${post.author.name}:` : "";
 
     postCard.appendChild(postAuthor);
 
     if (post.media && post.media.url) {
       const postMedia = document.createElement("img");
       postMedia.className = "post-media";
-      postMedia.src = post.media.url;
       postMedia.alt = post.title;
+      postMedia.onerror = () => {
+        postMedia.style.display = "none";
+      };
+
+      postMedia.src = post.media.url;
+
       postCard.appendChild(postMedia);
     }
     const btnContainer = document.createElement("div");
     btnContainer.className = "btn-container";
 
-    if (post.author.name === loggedInUser) {
+    if (post.author?.name === loggedInUser) {
       const moreBtn = document.createElement("a");
       moreBtn.className = "button more";
       moreBtn.href = `post.html?id=${post.id}`;
@@ -139,5 +144,21 @@ createForm.addEventListener("submit", async function (event) {
 });
 
 searchInput.addEventListener("input", async () => {
-  console.log(searchInput.value);
+  const query = searchInput.value.trim();
+  if (!query) {
+    const posts = await fetchPosts();
+    showPosts(posts);
+    return;
+  }
+  try {
+    const posts = await searchPost(query);
+    if (posts) {
+      showPosts(posts);
+    } else {
+      container.textContent = "Could not search posts. Please try again.";
+    }
+  } catch (error) {
+    console.error("Error searching posts:", error);
+    container.textContent = "Something went wrong.";
+  }
 });
