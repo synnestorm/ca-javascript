@@ -89,3 +89,29 @@ export async function deletePost(id) {
     return false;
   }
 }
+
+export async function updatePost(id) {
+  const updateUrl = `${API_BASE_URL}/social/posts/${id}`;
+  try {
+    const response = await fetch(updateUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "X-Noroff-API-Key": localStorage.getItem("apiKey"),
+      },
+      body: JSON.stringify({
+        title: title,
+        body: body,
+        media: media,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`Error! Status: ${response.status}`);
+    }
+    return true;
+  } catch (error) {
+    console.error("Failed to update post!", error);
+    return false;
+  }
+}
