@@ -47,36 +47,12 @@ function showPosts(posts) {
     btnContainer.className = "btn-container";
 
     if (post.author.name === loggedInUser) {
-      const deleteBtn = document.createElement("button");
-      deleteBtn.className = "delete-btn";
-      deleteBtn.type = "button";
-      deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
-      deleteBtn.addEventListener("click", async () => {
-        const success = await deletePost(post.id);
-        if (success) {
-          delStatus.textContent = "Post deleted! Refreshing...";
-          delStatus.className = "success";
+      const moreBtn = document.createElement("a");
+      moreBtn.className = "button more";
+      moreBtn.href = `post.html?id=${post.id}`;
+      moreBtn.innerHTML = `<i class="fa-solid fa-ellipsis"></i>`;
 
-          setTimeout(function () {
-            window.location.href = "posts.html";
-          }, 1000);
-        } else {
-          delStatus.textContent = "Delete failed. Please try again.";
-          delStatus.className = "error";
-          setTimeout(function () {
-            delStatus.textContent = "";
-          }, 2000);
-        }
-      });
-
-      const editBtn = document.createElement("button");
-      editBtn.className = "edit-btn";
-      editBtn.type = "button";
-      editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
-      editBtn.addEventListener("click", () => {});
-
-      btnContainer.appendChild(deleteBtn);
-      btnContainer.appendChild(editBtn);
+      btnContainer.appendChild(moreBtn);
     }
 
     postLink.appendChild(postTitle);
