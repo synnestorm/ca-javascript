@@ -39,7 +39,8 @@ li {
 
 input.search {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
   width: 100%;
   max-width: 300px;
 }

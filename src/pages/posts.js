@@ -1,11 +1,11 @@
-import { fetchPosts, createPost, deletePost } from "../api/posts.js";
+import { fetchPosts, createPost, searchPost } from "../api/posts.js";
 
 const container = document.getElementById("container");
 const loader = document.getElementById("loader");
 const createForm = document.getElementById("create-form");
 const status = document.getElementById("status");
-const delStatus = document.getElementById("del-status");
 const titleError = document.getElementById("titleError");
+const searchInput = document.getElementById("search");
 
 function showPosts(posts) {
   const loggedInUser = localStorage.getItem("username");
@@ -136,4 +136,8 @@ createForm.addEventListener("submit", async function (event) {
       status.className = "error";
     }
   }
+});
+
+searchInput.addEventListener("input", async () => {
+  console.log(searchInput.value);
 });
