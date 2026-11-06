@@ -35,6 +35,13 @@
         </div>
     </header>
     <main>
+        <div>
+            <dialog id="del-post">
+                <p id="delStatus">Are you sure you want to delete post?</p>
+                <button commandfor="del-post" command="close" id="cancelDelete">Cancel</button>
+                <button type="button" id="confirm-delete">Delete</button>
+            </dialog>
+        </div>
         <div id="container"></div>
     </main>
     <footer>

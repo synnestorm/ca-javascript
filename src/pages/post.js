@@ -1,6 +1,8 @@
 import { fetchSinglePost, deletePost } from "../api/posts.js";
 
 const container = document.getElementById("container");
+const confirmDelete = document.getElementById("confirm-delete");
+const deleteDialog = document.getElementById("del-post");
 
 function showPost(post) {
   const loggedInUser = localStorage.getItem("username");
@@ -39,10 +41,14 @@ function showPost(post) {
 
   if (post.author.name === loggedInUser) {
     const deleteBtn = document.createElement("button");
-    deleteBtn.className = "delete-btn";
     deleteBtn.type = "button";
+    deleteBtn.className = "delete-btn";
     deleteBtn.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
-    deleteBtn.addEventListener("click", async () => {
+    deleteBtn.addEventListener("click", () => {
+      deleteDialog.showModal();
+    });
+
+    confirmDelete.addEventListener("click", async () => {
       const success = await deletePost(post.id);
       if (success) {
         delStatus.textContent = "Post deleted! Refreshing...";
@@ -50,7 +56,7 @@ function showPost(post) {
 
         setTimeout(function () {
           window.location.href = "posts.html";
-        }, 1000);
+        }, 2000);
       } else {
         delStatus.textContent = "Delete failed. Please try again.";
         delStatus.className = "error";
@@ -66,8 +72,8 @@ function showPost(post) {
     editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
     editBtn.addEventListener("click", () => {});
 
-    btnContainer.appendChild(deleteBtn);
     btnContainer.appendChild(editBtn);
+    btnContainer.appendChild(deleteBtn);
   }
 
   postCard.appendChild(postTitle);
