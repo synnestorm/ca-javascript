@@ -1,6 +1,8 @@
 import { fetchSinglePost, deletePost } from "../api/posts.js";
 
 const container = document.getElementById("container");
+const confirmEdit = document.getElementById("confirm-edit");
+const editDialog = document.getElementById("edit-post");
 const confirmDelete = document.getElementById("confirm-delete");
 const deleteDialog = document.getElementById("del-post");
 
@@ -40,6 +42,20 @@ function showPost(post) {
   btnContainer.className = "btn-container";
 
   if (post.author.name === loggedInUser) {
+    const editBtn = document.createElement("button");
+    editBtn.className = "edit-btn";
+    editBtn.type = "button";
+    editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
+    editBtn.addEventListener("click", () => {
+      editDialog.showModal();
+    });
+
+    confirmEdit.addEventListener("click", async () => {
+      // kind of same logic as with confirmDelete. remember to import updatePost()!
+      // need to get value from title, body and media
+    });
+
+    btnContainer.appendChild(editBtn);
     const deleteBtn = document.createElement("button");
     deleteBtn.type = "button";
     deleteBtn.className = "delete-btn";
@@ -65,14 +81,6 @@ function showPost(post) {
         }, 2000);
       }
     });
-
-    const editBtn = document.createElement("button");
-    editBtn.className = "edit-btn";
-    editBtn.type = "button";
-    editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
-    editBtn.addEventListener("click", () => {});
-
-    btnContainer.appendChild(editBtn);
     btnContainer.appendChild(deleteBtn);
   }
 
