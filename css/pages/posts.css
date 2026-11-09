@@ -141,3 +141,19 @@ h3 {
 .no-comments {
   padding: 5px;
 }
+
+#confirm-delete,
+#cancel-btn {
+  background-color: var(--button-two);
+  color: var(--color-one);
+  padding: 5px 15px;
+  margin: 0;
+}
+
+#del-post {
+  transform: translateY(-80px);
+  margin: auto;
+  width: 100%;
+  max-width: 550px;
+  height: 220px;
+}
