@@ -6,6 +6,10 @@ const editDialog = document.getElementById("edit-post");
 const confirmDelete = document.getElementById("confirm-delete");
 const deleteDialog = document.getElementById("del-post");
 
+const titleInput = document.getElementById("title");
+const bodyInput = document.getElementById("body");
+const mediaInput = document.getElementById("media");
+
 function showPost(post) {
   const loggedInUser = localStorage.getItem("username");
   if (!post) {
