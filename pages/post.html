@@ -38,12 +38,22 @@
         <div>
             <dialog id="del-post">
                 <p id="delStatus">Are you sure you want to delete post?</p>
-                <button commandfor="del-post" command="close" id="cancelDelete">Cancel</button>
+                <button commandfor="del-post" command="close" id="cancel-btn">Cancel</button>
                 <button type="button" id="confirm-delete">Delete</button>
             </dialog>
             <dialog id="edit-post">
-                <button commandfor="edit-post" command="close" id="cancelEdit">Cancel</button>
-                <button type="button" id="confirm-edit">Edit</button>
+                <form id="create-form">
+                    <p id="status"></p>
+                    <label for="title">Title:</label>
+                    <input id="title" name="title" type="text" placeholder="Post title" required>
+                    <p id="titleError"></p>
+                    <label for="body">Body:</label>
+                    <textarea id="body" name="body" rows="5" cols="40" placeholder="Post description"></textarea>
+                    <label for="media">Image:</label>
+                    <input id="media" name="media" type="url" placeholder="Post image url">
+                    <button type="button" id="confirm-edit">Edit</button>
+                </form>
+                <button commandfor="edit-post" command="close" class="close">Cancel</button>
             </dialog>
         </div>
         <div id="container"></div>
