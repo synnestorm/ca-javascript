@@ -2,7 +2,7 @@
 
 ## Live Demo
 
-- [**Live Site**]
+- [**Live Site**](https://synnestorm.github.io/ca-javascript)
 - [**Github Repository**](https://github.com/synnestorm/ca-javascript)
 
 ## Description
@@ -20,6 +20,11 @@ Password: Password02
 Registration requires a valid `@noroff.stud.no` email address.
 
 ## Tech Stack
+
+- JavaScript (ES6 Modules)
+- HTML5
+- CSS3
+- Git & Github
 
 ## Installation
 

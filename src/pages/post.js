@@ -17,12 +17,10 @@ const mediaInput = document.getElementById("media");
 
 let currentPost = null;
 
-console.log(updateForm);
-
 function showPost(post) {
   const loggedInUser = localStorage.getItem("username");
   if (!post) {
-    container.innerHTML = "Could not individual post.";
+    container.innerHTML = "Could not get individual post.";
     return;
   }
   container.textContent = "";
