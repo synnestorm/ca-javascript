@@ -12,7 +12,7 @@ const titleInput = document.getElementById("title");
 const bodyInput = document.getElementById("body");
 const mediaInput = document.getElementById("media");
 
-const currentPost = null;
+let currentPost = null;
 
 function showPost(post) {
   const loggedInUser = localStorage.getItem("username");
@@ -55,30 +55,12 @@ function showPost(post) {
     editBtn.type = "button";
     editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
     editBtn.addEventListener("click", () => {
+      currentPost = post;
       editDialog.showModal();
       titleInput.value = post.title;
       bodyInput.value = post.body;
       mediaInput.value = post.media;
     });
-
-    /*     confirmEdit.addEventListener("click", async () => {
-      const success = await updatePost(post.id);
-      if (success) {
-        status.textContent = "Post Updated! Refreshing...";
-        status.className = "success";
-
-        setTimeout(function () {
-          window.location.href = `post.html?id=${post.id}`;
-        }, 2000);
-      } else {
-        status.textContent = "Editing failed. Please try again.";
-        status.className = "error";
-
-        setTimeout(function () {
-          status.textContent = "";
-        }, 2000);
-      }
-    }); */
 
     btnContainer.appendChild(editBtn);
     const deleteBtn = document.createElement("button");
@@ -176,7 +158,7 @@ try {
   hideLoader(loader);
 }
 
-/* createForm.addEventListener("submit", async function (event) {
+updateForm.addEventListener("submit", async function (event) {
   event.preventDefault();
   status.textContent = "";
 
@@ -201,7 +183,7 @@ try {
       status.className = "success";
 
       setTimeout(function () {
-        window.location.href = "posts.html";
+        window.location.href = `post.html?id=${post.id}`;
       }, 2000);
     } else {
       status.textContent = "Creating post failed. Please try again.";
@@ -209,4 +191,22 @@ try {
     }
   }
 });
- */
+
+/*     confirmEdit.addEventListener("click", async () => {
+      const success = await updatePost(post.id);
+      if (success) {
+        status.textContent = "Post Updated! Refreshing...";
+        status.className = "success";
+
+        setTimeout(function () {
+          window.location.href = `post.html?id=${post.id}`;
+        }, 2000);
+      } else {
+        status.textContent = "Editing failed. Please try again.";
+        status.className = "error";
+
+        setTimeout(function () {
+          status.textContent = "";
+        }, 2000);
+      }
+    }); */
