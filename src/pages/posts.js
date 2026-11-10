@@ -1,5 +1,6 @@
 import { fetchPosts, createPost, searchPost } from "../api/posts.js";
 import { showError, clearError } from "../utils/formValidation.js";
+import { showLoader, hideLoader } from "../utils/loader.js";
 
 const container = document.getElementById("container");
 const loader = document.getElementById("loader");
@@ -69,7 +70,7 @@ function showPosts(posts) {
   });
 }
 
-loader.style.display = "flex";
+showLoader(loader);
 
 try {
   const posts = await fetchPosts();
@@ -83,7 +84,7 @@ try {
   console.error("Error loading posts:", error);
   container.textContent = "Something went wrong.";
 } finally {
-  loader.style.display = "none";
+  hideLoader(loader);
 }
 
 // creating post and validation

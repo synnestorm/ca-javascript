@@ -1,4 +1,5 @@
 import { fetchSinglePost, deletePost, updatePost } from "../api/posts.js";
+import { showLoader, hideLoader } from "../utils/loader.js";
 
 const container = document.getElementById("container");
 const confirmEdit = document.getElementById("confirm-edit");
@@ -151,16 +152,25 @@ function showComments(post) {
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-if (!id) {
-  container.textContent = "No ID provided!";
-} else {
-  const post = await fetchSinglePost(id);
-  if (post) {
-    showPost(post);
-    showComments(post);
+showLoader(loader);
+
+try {
+  if (!id) {
+    container.textContent = "No ID provided!";
   } else {
-    container.textContent = "Could not load post.";
+    const post = await fetchSinglePost(id);
+    if (post) {
+      showPost(post);
+      showComments(post);
+    } else {
+      container.textContent = "Could not load post.";
+    }
   }
+} catch (error) {
+  console.error("Error loading posts:", error);
+  container.textContent = "Something went wrong.";
+} finally {
+  hideLoader(loader);
 }
 
 /* createForm.addEventListener("submit", async function (event) {
@@ -195,4 +205,5 @@ if (!id) {
       status.className = "error";
     }
   }
-}); */
+});
+ */
