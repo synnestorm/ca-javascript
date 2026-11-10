@@ -12,6 +12,8 @@ const titleInput = document.getElementById("title");
 const bodyInput = document.getElementById("body");
 const mediaInput = document.getElementById("media");
 
+const currentPost = null;
+
 function showPost(post) {
   const loggedInUser = localStorage.getItem("username");
   if (!post) {
@@ -54,9 +56,12 @@ function showPost(post) {
     editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
     editBtn.addEventListener("click", () => {
       editDialog.showModal();
+      titleInput.value = post.title;
+      bodyInput.value = post.body;
+      mediaInput.value = post.media;
     });
 
-    confirmEdit.addEventListener("click", async () => {
+    /*     confirmEdit.addEventListener("click", async () => {
       const success = await updatePost(post.id);
       if (success) {
         status.textContent = "Post Updated! Refreshing...";
@@ -73,9 +78,7 @@ function showPost(post) {
           status.textContent = "";
         }, 2000);
       }
-      // kind of same logic as with confirmDelete. remember to import updatePost()!
-      // need to get value from title, body and media
-    });
+    }); */
 
     btnContainer.appendChild(editBtn);
     const deleteBtn = document.createElement("button");
