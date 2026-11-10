@@ -1,11 +1,13 @@
 import { fetchSinglePost, deletePost, updatePost } from "../api/posts.js";
 import { showLoader, hideLoader } from "../utils/loader.js";
+import { showError, clearError } from "../utils/formValidation.js";
 
 const container = document.getElementById("container");
-const confirmEdit = document.getElementById("confirm-edit");
 const editDialog = document.getElementById("edit-post");
 const confirmDelete = document.getElementById("confirm-delete");
 const deleteDialog = document.getElementById("del-post");
+const updateForm = document.getElementById("update-form");
+const loader = document.getElementById("loader");
 
 const status = document.getElementById("status");
 const titleInput = document.getElementById("title");
@@ -13,6 +15,8 @@ const bodyInput = document.getElementById("body");
 const mediaInput = document.getElementById("media");
 
 let currentPost = null;
+
+console.log(updateForm);
 
 function showPost(post) {
   const loggedInUser = localStorage.getItem("username");
@@ -59,7 +63,7 @@ function showPost(post) {
       editDialog.showModal();
       titleInput.value = post.title;
       bodyInput.value = post.body;
-      mediaInput.value = post.media;
+      mediaInput.value = post.media?.url || "";
     });
 
     btnContainer.appendChild(editBtn);
@@ -158,55 +162,52 @@ try {
   hideLoader(loader);
 }
 
+function validateTitle() {
+  const value = titleInput.value.trim();
+  if (value.length === 0) {
+    showError(titleError, "Title is required!");
+    return false;
+  }
+  clearError(titleError);
+  return true;
+}
+
+function validateForm() {
+  return validateTitle();
+}
+
 updateForm.addEventListener("submit", async function (event) {
   event.preventDefault();
   status.textContent = "";
 
   if (validateForm()) {
-    const createBody = body.value.trim();
-    const mediaUrl = media.value.trim();
+    const updatedTitle = titleInput.value.trim();
+    const updatedBody = bodyInput.value.trim();
+    const mediaUrl = mediaInput.value.trim();
 
-    const createMedia = mediaUrl
+    const updatedMedia = mediaUrl
       ? {
           url: mediaUrl,
-          alt: "This is an image created inside a post.",
+          alt: updatedTitle,
         }
       : null;
-    const success = await createPost(
-      title.value.trim(),
-      createBody,
-      createMedia,
+    const success = await updatePost(
+      currentPost.id,
+      updatedTitle,
+      updatedBody,
+      updatedMedia,
     );
 
     if (success) {
-      status.textContent = "Post created successfully! Please wait...";
+      status.textContent = "Post updated successfully! Please wait...";
       status.className = "success";
 
       setTimeout(function () {
-        window.location.href = `post.html?id=${post.id}`;
+        window.location.href = `post.html?id=${currentPost.id}`;
       }, 2000);
     } else {
-      status.textContent = "Creating post failed. Please try again.";
+      status.textContent = "Updating post failed. Please try again.";
       status.className = "error";
     }
   }
 });
-
-/*     confirmEdit.addEventListener("click", async () => {
-      const success = await updatePost(post.id);
-      if (success) {
-        status.textContent = "Post Updated! Refreshing...";
-        status.className = "success";
-
-        setTimeout(function () {
-          window.location.href = `post.html?id=${post.id}`;
-        }, 2000);
-      } else {
-        status.textContent = "Editing failed. Please try again.";
-        status.className = "error";
-
-        setTimeout(function () {
-          status.textContent = "";
-        }, 2000);
-      }
-    }); */

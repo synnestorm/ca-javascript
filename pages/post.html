@@ -43,7 +43,7 @@
                 <button type="button" id="confirm-delete">Delete</button>
             </dialog>
             <dialog id="edit-post">
-                <form id="create-form">
+                <form id="update-form">
                     <p id="status"></p>
                     <label for="title">Title:</label>
                     <input id="title" name="title" type="text" placeholder="Post title" required>
@@ -52,7 +52,7 @@
                     <textarea id="body" name="body" rows="5" cols="40" placeholder="Post description"></textarea>
                     <label for="media">Image:</label>
                     <input id="media" name="media" type="url" placeholder="Post image url">
-                    <button type="button" id="confirm-edit">Edit</button>
+                    <button type="submit" id="confirm-edit">Edit</button>
                 </form>
                 <button commandfor="edit-post" command="close" class="close">Cancel</button>
             </dialog>

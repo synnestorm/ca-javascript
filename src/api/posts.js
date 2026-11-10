@@ -90,7 +90,7 @@ export async function deletePost(id) {
   }
 }
 
-export async function updatePost(id) {
+export async function updatePost(id, title, body, media) {
   const updateUrl = `${API_BASE_URL}/social/posts/${id}`;
   try {
     const response = await fetch(updateUrl, {
