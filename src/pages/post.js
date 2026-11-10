@@ -1,4 +1,4 @@
-import { fetchSinglePost, deletePost } from "../api/posts.js";
+import { fetchSinglePost, deletePost, updatePost } from "../api/posts.js";
 
 const container = document.getElementById("container");
 const confirmEdit = document.getElementById("confirm-edit");
@@ -6,6 +6,7 @@ const editDialog = document.getElementById("edit-post");
 const confirmDelete = document.getElementById("confirm-delete");
 const deleteDialog = document.getElementById("del-post");
 
+const status = document.getElementById("status");
 const titleInput = document.getElementById("title");
 const bodyInput = document.getElementById("body");
 const mediaInput = document.getElementById("media");
@@ -55,6 +56,22 @@ function showPost(post) {
     });
 
     confirmEdit.addEventListener("click", async () => {
+      const success = await updatePost(post.id);
+      if (success) {
+        status.textContent = "Post Updated! Refreshing...";
+        status.className = "success";
+
+        setTimeout(function () {
+          window.location.href = `post.html?id=${post.id}`;
+        }, 2000);
+      } else {
+        status.textContent = "Editing failed. Please try again.";
+        status.className = "error";
+
+        setTimeout(function () {
+          status.textContent = "";
+        }, 2000);
+      }
       // kind of same logic as with confirmDelete. remember to import updatePost()!
       // need to get value from title, body and media
     });
@@ -71,17 +88,18 @@ function showPost(post) {
     confirmDelete.addEventListener("click", async () => {
       const success = await deletePost(post.id);
       if (success) {
-        delStatus.textContent = "Post deleted! Refreshing...";
-        delStatus.className = "success";
+        status.textContent = "Post deleted! Refreshing...";
+        status.className = "success";
 
         setTimeout(function () {
           window.location.href = "posts.html";
         }, 2000);
       } else {
-        delStatus.textContent = "Delete failed. Please try again.";
-        delStatus.className = "error";
+        status.textContent = "Delete failed. Please try again.";
+        status.className = "error";
+
         setTimeout(function () {
-          delStatus.textContent = "";
+          status.textContent = "";
         }, 2000);
       }
     });
@@ -144,3 +162,37 @@ if (!id) {
     container.textContent = "Could not load post.";
   }
 }
+
+/* createForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  status.textContent = "";
+
+  if (validateForm()) {
+    const createBody = body.value.trim();
+    const mediaUrl = media.value.trim();
+
+    const createMedia = mediaUrl
+      ? {
+          url: mediaUrl,
+          alt: "This is an image created inside a post.",
+        }
+      : null;
+    const success = await createPost(
+      title.value.trim(),
+      createBody,
+      createMedia,
+    );
+
+    if (success) {
+      status.textContent = "Post created successfully! Please wait...";
+      status.className = "success";
+
+      setTimeout(function () {
+        window.location.href = "posts.html";
+      }, 2000);
+    } else {
+      status.textContent = "Creating post failed. Please try again.";
+      status.className = "error";
+    }
+  }
+}); */
