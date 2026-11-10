@@ -1,4 +1,5 @@
 import { registerUser } from "../api/auth.js";
+import { showError, clearError } from "../utils/formValidation.js";
 
 // Validation variables:
 const emailError = document.getElementById("emailError");
@@ -13,14 +14,6 @@ const username = document.getElementById("username");
 const password = document.getElementById("password");
 
 // Validation functions:
-
-function showError(el, message) {
-  el.textContent = message;
-}
-
-function clearError(el) {
-  el.textContent = "";
-}
 
 function validateName() {
   const value = username.value.trim();

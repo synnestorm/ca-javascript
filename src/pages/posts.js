@@ -1,4 +1,5 @@
 import { fetchPosts, createPost, searchPost } from "../api/posts.js";
+import { showError, clearError } from "../utils/formValidation.js";
 
 const container = document.getElementById("container");
 const loader = document.getElementById("loader");
@@ -86,14 +87,6 @@ try {
 }
 
 // creating post and validation
-
-function showError(el, message) {
-  el.textContent = message;
-}
-
-function clearError(el) {
-  el.textContent = "";
-}
 
 function validateTitle() {
   const value = title.value.trim();
