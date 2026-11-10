@@ -1,6 +1,7 @@
 import { fetchPosts, createPost, searchPost } from "../api/posts.js";
 import { showError, clearError } from "../utils/formValidation.js";
 import { showLoader, hideLoader } from "../utils/loader.js";
+import { showStatus, clearStatus } from "../utils/statusMessage.js";
 
 const container = document.getElementById("container");
 const loader = document.getElementById("loader");
@@ -105,7 +106,7 @@ function validateForm() {
 
 createForm.addEventListener("submit", async function (event) {
   event.preventDefault();
-  status.textContent = "";
+  clearStatus(status);
 
   if (validateForm()) {
     const createBody = body.value.trim();
@@ -124,15 +125,13 @@ createForm.addEventListener("submit", async function (event) {
     );
 
     if (success) {
-      status.textContent = "Post created successfully! Please wait...";
-      status.className = "success";
+      showStatus(status, "Post created! Refreshing...", "success");
 
       setTimeout(function () {
         window.location.href = "posts.html";
       }, 2000);
     } else {
-      status.textContent = "Creating post failed. Please try again.";
-      status.className = "error";
+      showStatus(status, "Failed to create post. Please try again", "error");
     }
   }
 });

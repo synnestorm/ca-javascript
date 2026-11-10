@@ -1,6 +1,7 @@
 import { fetchSinglePost, deletePost, updatePost } from "../api/posts.js";
 import { showLoader, hideLoader } from "../utils/loader.js";
 import { showError, clearError } from "../utils/formValidation.js";
+import { showStatus, clearStatus } from "../utils/statusMessage.js";
 
 const container = document.getElementById("container");
 const editDialog = document.getElementById("edit-post");
@@ -78,15 +79,13 @@ function showPost(post) {
     confirmDelete.addEventListener("click", async () => {
       const success = await deletePost(post.id);
       if (success) {
-        status.textContent = "Post deleted! Refreshing...";
-        status.className = "success";
+        showStatus(status, "Post deleted! Refreshing...", "success");
 
         setTimeout(function () {
           window.location.href = "posts.html";
         }, 2000);
       } else {
-        status.textContent = "Delete failed. Please try again.";
-        status.className = "error";
+        showStatus(status, "Delete failed. Please try again.", "error");
 
         setTimeout(function () {
           status.textContent = "";
@@ -178,7 +177,7 @@ function validateForm() {
 
 updateForm.addEventListener("submit", async function (event) {
   event.preventDefault();
-  status.textContent = "";
+  clearStatus(status);
 
   if (validateForm()) {
     const updatedTitle = titleInput.value.trim();
@@ -199,15 +198,13 @@ updateForm.addEventListener("submit", async function (event) {
     );
 
     if (success) {
-      status.textContent = "Post updated successfully! Please wait...";
-      status.className = "success";
+      showStatus(status, "Post updated! Please wait...", "success");
 
       setTimeout(function () {
         window.location.href = `post.html?id=${currentPost.id}`;
       }, 2000);
     } else {
-      status.textContent = "Updating post failed. Please try again.";
-      status.className = "error";
+      showStatus(status, "Failed to update post. Please try again.", "error");
     }
   }
 });

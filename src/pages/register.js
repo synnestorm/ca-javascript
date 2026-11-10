@@ -1,5 +1,6 @@
 import { registerUser } from "../api/auth.js";
 import { showError, clearError } from "../utils/formValidation.js";
+import { showStatus, clearStatus } from "../utils/statusMessage.js";
 
 // Validation variables:
 const emailError = document.getElementById("emailError");
@@ -56,7 +57,7 @@ function validateForm() {
 
 registerForm.addEventListener("submit", async function (event) {
   event.preventDefault();
-  status.textContent = "";
+  clearStatus(status);
 
   if (validateForm()) {
     const success = await registerUser(
@@ -66,15 +67,17 @@ registerForm.addEventListener("submit", async function (event) {
     );
 
     if (success) {
-      status.textContent = "Account created successfully! Redirecting...";
-      status.className = "success";
+      showStatus(
+        status,
+        "Account created successfully! Redirecting...",
+        "success",
+      );
 
       setTimeout(function () {
         window.location.href = "../../index.html";
       }, 2000);
     } else {
-      status.textContent = "Registration failed. Please try again.";
-      status.className = "error";
+      showStatus(status, "Registration failed. Please try again.", "error");
     }
   }
 });
