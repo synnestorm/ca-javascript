@@ -34,41 +34,18 @@ function showProfile(profile) {
   const statistics = document.createElement("div");
   statistics.className = "statistics-container";
 
-  const postsHeader = document.createElement("h3");
-  postsHeader.className = "posts-header";
-  postsHeader.textContent = "Posts:";
-
-  const postsNumber = document.createElement("p");
-  postsNumber.className = "posts-number";
-  postsNumber.textContent = profile._count.posts;
-
-  const followingHeader = document.createElement("h3");
-  followingHeader.className = "following-header";
-  followingHeader.textContent = "Following:";
-
-  const followingNumber = document.createElement("p");
-  followingNumber.className = "following-number";
-  followingNumber.textContent = profile._count.following;
-
-  const followersHeader = document.createElement("h3");
-  followersHeader.className = "followers-header";
-  followersHeader.textContent = "Followers:";
-
-  const followersNumber = document.createElement("p");
-  followersNumber.className = "followers-number";
-  followersNumber.textContent = profile._count.followers;
+  const posts = showStatistics("Posts:", profile._count.posts);
+  const followers = showStatistics("Followers:", profile._count.followers);
+  const following = showStatistics("Following:", profile._count.following);
 
   profileContainer.appendChild(profileAvatar);
   profileInfoDiv.appendChild(profileName);
   profileInfoDiv.appendChild(profileEmail);
   profileContainer.appendChild(profileInfoDiv);
 
-  statistics.appendChild(postsHeader);
-  statistics.appendChild(postsNumber);
-  statistics.appendChild(followersHeader);
-  statistics.appendChild(followersNumber);
-  statistics.appendChild(followingHeader);
-  statistics.appendChild(followingNumber);
+  statistics.appendChild(posts);
+  statistics.appendChild(followers);
+  statistics.appendChild(following);
 
   container.appendChild(profileContainer);
   container.appendChild(statistics);
@@ -87,4 +64,20 @@ try {
 } catch (error) {
   console.error("Error loading profile:", error);
   container.innerHTML = "Something went wrong.";
+}
+
+function showStatistics(label, number) {
+  const statistic = document.createElement("div");
+  statistic.className = "statistic";
+
+  const header = document.createElement("h3");
+  header.textContent = label;
+
+  const value = document.createElement("p");
+  value.textContent = number;
+
+  statistic.appendChild(header);
+  statistic.appendChild(value);
+
+  return statistic;
 }
