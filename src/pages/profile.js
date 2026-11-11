@@ -12,10 +12,16 @@ function showProfile(profile) {
   const profileCard = document.createElement("div");
   profileCard.className = "profile-card";
 
+  const profileContainer = document.createElement("div");
+  profileContainer.className = "profile-container";
+
   const profileAvatar = document.createElement("img");
   profileAvatar.className = "profile-avatar";
   profileAvatar.src = profile.avatar.url;
   profileAvatar.alt = profile.avatar.alt;
+
+  const profileInfoDiv = document.createElement("div");
+  profileInfoDiv.className = "profile-info";
 
   const profileName = document.createElement("h2");
   profileName.className = "profile-name";
@@ -25,10 +31,12 @@ function showProfile(profile) {
   profileEmail.className = "profile-email";
   profileEmail.textContent = profile.email;
 
-  profileCard.appendChild(profileAvatar);
-  profileCard.appendChild(profileName);
+  profileContainer.appendChild(profileAvatar);
+  profileInfoDiv.appendChild(profileName);
+  profileInfoDiv.appendChild(profileEmail);
+  profileContainer.appendChild(profileInfoDiv);
 
-  profileCard.appendChild(profileEmail);
+  container.appendChild(profileContainer);
   container.appendChild(profileCard);
 }
 
