@@ -1,6 +1,7 @@
-import { fetchProfile } from "../api/profiles.js";
+import { fetchProfile, fetchProfilePosts } from "../api/profiles.js";
 
 const container = document.getElementById("container");
+const postContainer = document.getElementById("post-container");
 
 function showProfile(profile) {
   if (!profile) {
@@ -57,13 +58,15 @@ const name = params.get("name");
 
 try {
   const username = localStorage.getItem("username");
-  const profileNames = name || username;
+  const profileName = name || username;
 
-  if (!profileNames) {
+  if (!profileName) {
     container.innerHTML = "Could not load profile.";
   } else {
-    const profile = await fetchProfile(profileNames);
+    const profile = await fetchProfile(profileName);
     showProfile(profile);
+    const posts = await fetchProfilePosts(profileName);
+    showProfilePosts(posts, profileName);
   }
 } catch (error) {
   console.error("Error loading profile:", error);
@@ -84,4 +87,65 @@ function showStatistics(label, number) {
   statistic.appendChild(value);
 
   return statistic;
+}
+
+function showProfilePosts(posts, profileName) {
+  const loggedInUser = localStorage.getItem("username");
+  if (posts === false) {
+    postContainer.textContent = "Could not load posts.";
+    return;
+  }
+  if (!posts || posts.length === 0) {
+    postContainer.innerHTML = "This user has no posts yet.";
+    return;
+  }
+  postContainer.innerHTML = "";
+  posts.forEach((post) => {
+    console.log(post);
+    const postCard = document.createElement("div");
+    postCard.className = "post-card";
+
+    const postTitle = document.createElement("h2");
+    postTitle.className = "post-title";
+    postTitle.textContent = post.title;
+
+    const postLink = document.createElement("a");
+    postLink.className = "post-link";
+    postLink.href = `post.html?id=${post.id}`;
+
+    const postBody = document.createElement("p");
+    postBody.className = "post-body";
+    postBody.textContent = post.body;
+
+    if (post.media && post.media.url) {
+      const postMedia = document.createElement("img");
+      postMedia.className = "post-media";
+      postMedia.alt = post.title;
+      postMedia.onerror = () => {
+        postMedia.style.display = "none";
+      };
+
+      postMedia.src = post.media.url;
+
+      postCard.appendChild(postMedia);
+    }
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "btn-container";
+    console.log("Post author:", post.author?.name);
+    console.log("Logged in user:", loggedInUser);
+    if (profileName === loggedInUser) {
+      const moreBtn = document.createElement("a");
+      moreBtn.className = "button more";
+      moreBtn.href = `post.html?id=${post.id}`;
+      moreBtn.innerHTML = `<i class="fa-solid fa-ellipsis"></i>`;
+
+      btnContainer.appendChild(moreBtn);
+    }
+
+    postLink.appendChild(postTitle);
+    postCard.appendChild(postLink);
+    postCard.appendChild(postBody);
+    postCard.appendChild(btnContainer);
+    postContainer.appendChild(postCard);
+  });
 }
