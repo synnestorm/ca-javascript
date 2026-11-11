@@ -1,4 +1,4 @@
-import { fetchProfiles } from "../api/profiles.js";
+import { fetchProfile } from "../api/profiles.js";
 
 const container = document.getElementById("container");
 
@@ -52,13 +52,17 @@ function showProfile(profile) {
   container.appendChild(profileCard);
 }
 
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+
 try {
   const username = localStorage.getItem("username");
+  const profileNames = name || username;
 
-  if (!username) {
+  if (!profileNames) {
     container.innerHTML = "Could not load profile.";
   } else {
-    const profile = await fetchProfiles(username);
+    const profile = await fetchProfile(profileNames);
     showProfile(profile);
   }
 } catch (error) {
