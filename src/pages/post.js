@@ -7,10 +7,12 @@ const container = document.getElementById("container");
 const editDialog = document.getElementById("edit-post");
 const confirmDelete = document.getElementById("confirm-delete");
 const deleteDialog = document.getElementById("del-post");
+const deleteStatus = deleteDialog.querySelector(".status");
 const updateForm = document.getElementById("update-form");
+const editStatus = updateForm.querySelector(".status");
 const loader = document.getElementById("loader");
 
-const status = document.getElementById("status");
+const status = document.querySelectorAll(".status");
 const titleInput = document.getElementById("title");
 const bodyInput = document.getElementById("body");
 const mediaInput = document.getElementById("media");
@@ -77,13 +79,13 @@ function showPost(post) {
     confirmDelete.addEventListener("click", async () => {
       const success = await deletePost(post.id);
       if (success) {
-        showStatus(status, "Post deleted! Refreshing...", "success");
+        showStatus(deleteStatus, "Post deleted! Refreshing...", "success");
 
         setTimeout(function () {
           window.location.href = "posts.html";
         }, 2000);
       } else {
-        showStatus(status, "Delete failed. Please try again.", "error");
+        showStatus(deleteStatus, "Delete failed. Please try again.", "error");
 
         setTimeout(function () {
           status.textContent = "";
@@ -196,13 +198,17 @@ updateForm.addEventListener("submit", async function (event) {
     );
 
     if (success) {
-      showStatus(status, "Post updated! Please wait...", "success");
+      showStatus(editStatus, "Post updated! Please wait...", "success");
 
       setTimeout(function () {
         window.location.href = `post.html?id=${currentPost.id}`;
       }, 2000);
     } else {
-      showStatus(status, "Failed to update post. Please try again.", "error");
+      showStatus(
+        editStatus,
+        "Failed to update post. Please try again.",
+        "error",
+      );
     }
   }
 });

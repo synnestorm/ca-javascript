@@ -37,14 +37,14 @@
     <main>
         <div>
             <dialog id="del-post">
-                <p id="status"></p>
+                <p class="status"></p>
                 <p>Are you sure you want to delete post?</p>
                 <button commandfor="del-post" command="close" id="cancel-btn">Cancel</button>
                 <button type="button" id="confirm-delete">Delete</button>
             </dialog>
             <dialog id="edit-post">
                 <form id="update-form">
-                    <p id="status"></p>
+                    <p class="status"></p>
                     <label for="title">Title:</label>
                     <input id="title" name="title" type="text" placeholder="Post title" required>
                     <p id="titleError"></p>
