@@ -2,40 +2,46 @@ import { fetchProfiles } from "../api/profiles.js";
 
 const container = document.getElementById("container");
 
-function showProfiles(profiles) {
-  if (!profiles || profiles.length === 0) {
+function showProfile(profile) {
+  if (!profile) {
     container.innerHTML = "Could not show all profiles.";
     return;
   }
   container.innerHTML = "";
-  profiles.forEach((profile) => {
-    const profileCard = document.createElement("div");
-    profileCard.className = "profile-card";
 
-    const profileName = document.createElement("h2");
-    profileName.className = "profile-name";
-    profileName.textContent = profile.name;
+  const profileCard = document.createElement("div");
+  profileCard.className = "profile-card";
 
-    const profileEmail = document.createElement("p");
-    profileEmail.className = "profile-email";
-    profileEmail.textContent = profile.email;
+  const profileAvatar = document.createElement("img");
+  profileAvatar.className = "profile-avatar";
+  profileAvatar.src = profile.avatar.url;
+  profileAvatar.alt = profile.avatar.alt;
 
-    profileCard.appendChild(profileName);
+  const profileName = document.createElement("h2");
+  profileName.className = "profile-name";
+  profileName.textContent = profile.name;
 
-    profileCard.appendChild(profileEmail);
-    container.appendChild(profileCard);
-  });
+  const profileEmail = document.createElement("p");
+  profileEmail.className = "profile-email";
+  profileEmail.textContent = profile.email;
+
+  profileCard.appendChild(profileAvatar);
+  profileCard.appendChild(profileName);
+
+  profileCard.appendChild(profileEmail);
+  container.appendChild(profileCard);
 }
 
 try {
-  const profiles = await fetchProfiles();
+  const username = localStorage.getItem("username");
 
-  if (profiles) {
-    showProfiles(profiles);
+  if (!username) {
+    container.innerHTML = "Could not load profile.";
   } else {
-    container.textContent = "Could not load profiles.";
+    const profile = await fetchProfiles(username);
+    showProfile(profile);
   }
 } catch (error) {
-  console.error("Error loading profiles:", error);
+  console.error("Error loading profile:", error);
   container.innerHTML = "Something went wrong.";
 }
