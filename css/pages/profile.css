@@ -1,8 +1,10 @@
 .profile-avatar {
   width: 100%;
   max-width: 150px;
+  height: 150px;
   border-radius: 50%;
   border: 5px solid var(--border-color);
+  object-fit: cover;
 }
 
 .profile-container {
