@@ -33,11 +33,16 @@ function showPosts(posts) {
     postBody.className = "post-body";
     postBody.textContent = post.body;
 
+    const authorLink = document.createElement("a");
+    authorLink.className = "author-link";
+    authorLink.href = `profile.html?name=${encodeURIComponent(post.author.name)}`;
+
     const postAuthor = document.createElement("p");
     postAuthor.className = "post-author";
     postAuthor.textContent = post.author ? `${post.author.name}:` : "";
 
-    postCard.appendChild(postAuthor);
+    authorLink.appendChild(postAuthor);
+    postCard.appendChild(authorLink);
 
     if (post.media && post.media.url) {
       const postMedia = document.createElement("img");
