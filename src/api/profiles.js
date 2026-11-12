@@ -46,7 +46,6 @@ export async function followProfile(name) {
     const response = await fetch(followProfileUrl, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         "X-Noroff-API-Key": localStorage.getItem("apiKey"),
       },
@@ -57,6 +56,26 @@ export async function followProfile(name) {
     return true;
   } catch (error) {
     console.error("Failed to follow!", error);
+    return false;
+  }
+}
+
+export async function unfollowProfile(name) {
+  const unfollowProfileUrl = `${API_BASE_URL}/social/profiles/${name}/unfollow`;
+  try {
+    const response = await fetch(unfollowProfileUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "X-Noroff-API-Key": localStorage.getItem("apiKey"),
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! Status: ${response.status}`);
+    }
+    return true;
+  } catch (error) {
+    console.error("Failed to unfollow!", error);
     return false;
   }
 }
