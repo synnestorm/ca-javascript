@@ -39,3 +39,24 @@ export async function fetchProfilePosts(name) {
     return false;
   }
 }
+
+export async function followProfile(name) {
+  const followProfileUrl = `${API_BASE_URL}/social/profiles/${name}/follow`;
+  try {
+    const response = await fetch(followProfileUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "X-Noroff-API-Key": localStorage.getItem("apiKey"),
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! Status: ${response.status}`);
+    }
+    return true;
+  } catch (error) {
+    console.error("Failed to follow!", error);
+    return false;
+  }
+}
