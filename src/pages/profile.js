@@ -41,27 +41,45 @@ function showProfile(profile) {
   const followBtn = document.createElement("button");
   followBtn.type = "button";
   followBtn.className = "follow-btn";
-  followBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
+
+  let isFollowing =
+    profile.followers?.some((follower) => follower.name === loggedInUser) ??
+    false;
+
+  function updateFollowButton() {
+    if (isFollowing) {
+      followBtn.innerHTML = `<i class="fa-solid fa-user-minus"></i>`;
+    } else {
+      followBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
+    }
+  }
   if (profile.name === loggedInUser) {
     followBtn.style.display = "none";
   }
-  let isFollowing = false;
+
+  updateFollowButton();
+
   followBtn.addEventListener("click", async () => {
     followBtn.disabled = true;
-    if (isFollowing) {
-      const success = await unfollowProfile(profile.name);
-      if (success) {
-        isFollowing = false;
-        followBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
+    try {
+      if (isFollowing) {
+        const success = await unfollowProfile(profile.name);
+        if (success) {
+          isFollowing = false;
+          updateFollowButton();
+        }
+      } else {
+        const success = await followProfile(profile.name);
+        if (success) {
+          isFollowing = true;
+          updateFollowButton();
+        }
       }
-    } else {
-      const success = await followProfile(profile.name);
-      if (success) {
-        isFollowing = true;
-        followBtn.innerHTML = `<i class="fa-solid fa-user-minus"></i>`;
-      }
+    } catch (error) {
+      console.error("Error! Follow/Unfollow failed:", error);
+    } finally {
+      followBtn.disabled = false;
     }
-    followBtn.disabled = false;
   });
 
   const statistics = document.createElement("div");

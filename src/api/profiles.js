@@ -1,7 +1,7 @@
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
 export async function fetchProfile(name) {
-  const profilesUrl = `${API_BASE_URL}/social/profiles/${name}`;
+  const profilesUrl = `${API_BASE_URL}/social/profiles/${name}?_followers=true`;
   try {
     const response = await fetch(profilesUrl, {
       headers: {
