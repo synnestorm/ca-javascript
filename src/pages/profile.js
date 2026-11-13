@@ -1,9 +1,15 @@
-import { fetchProfile, fetchProfilePosts } from "../api/profiles.js";
+import {
+  fetchProfile,
+  fetchProfilePosts,
+  followProfile,
+  unfollowProfile,
+} from "../api/profiles.js";
 
 const container = document.getElementById("container");
 const postContainer = document.getElementById("post-container");
 
 function showProfile(profile) {
+  const loggedInUser = localStorage.getItem("username");
   if (!profile) {
     container.innerHTML = "Could not show all profiles.";
     return;
@@ -32,6 +38,32 @@ function showProfile(profile) {
   profileEmail.className = "profile-email";
   profileEmail.textContent = profile.email;
 
+  const followBtn = document.createElement("button");
+  followBtn.type = "button";
+  followBtn.className = "follow-btn";
+  followBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
+  if (profile.name === loggedInUser) {
+    followBtn.style.display = "none";
+  }
+  let isFollowing = false;
+  followBtn.addEventListener("click", async () => {
+    followBtn.disabled = true;
+    if (isFollowing) {
+      const success = await unfollowProfile(profile.name);
+      if (success) {
+        isFollowing = false;
+        followBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i>`;
+      }
+    } else {
+      const success = await followProfile(profile.name);
+      if (success) {
+        isFollowing = true;
+        followBtn.innerHTML = `<i class="fa-solid fa-user-minus"></i>`;
+      }
+    }
+    followBtn.disabled = false;
+  });
+
   const statistics = document.createElement("div");
   statistics.className = "statistics-container";
 
@@ -43,6 +75,7 @@ function showProfile(profile) {
   profileInfoDiv.appendChild(profileName);
   profileInfoDiv.appendChild(profileEmail);
   profileContainer.appendChild(profileInfoDiv);
+  profileContainer.appendChild(followBtn);
 
   statistics.appendChild(posts);
   statistics.appendChild(followers);
@@ -101,7 +134,6 @@ function showProfilePosts(posts, profileName) {
   }
   postContainer.innerHTML = "";
   posts.forEach((post) => {
-    console.log(post);
     const postCard = document.createElement("div");
     postCard.className = "post-card";
 
@@ -131,8 +163,7 @@ function showProfilePosts(posts, profileName) {
     }
     const btnContainer = document.createElement("div");
     btnContainer.className = "btn-container";
-    console.log("Post author:", post.author?.name);
-    console.log("Logged in user:", loggedInUser);
+
     if (profileName === loggedInUser) {
       const moreBtn = document.createElement("a");
       moreBtn.className = "button more";
