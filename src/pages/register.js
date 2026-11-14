@@ -61,8 +61,8 @@ registerForm.addEventListener("submit", async function (event) {
 
   if (validateForm()) {
     const success = await registerUser(
-      username.value,
-      email.value,
+      username.value.trim(),
+      email.value.trim(),
       password.value,
     );
 
@@ -74,7 +74,7 @@ registerForm.addEventListener("submit", async function (event) {
       );
 
       setTimeout(function () {
-        // testing the path to see if it works on github pages:
+        // this path is a fix, since "../../index.html" does not work on github pages
         window.location.href = "/ca-javascript/index.html";
       }, 2000);
     } else {
