@@ -71,6 +71,28 @@ footer {
   text-align: center;
 }
 
+#status {
+  position: relative;
+  left: 5px;
+  bottom: 10px;
+  font-size: 12px;
+}
+
+#nameError,
+#emailError,
+#passwordError {
+  position: relative;
+  left: 10px;
+  bottom: 14px;
+  color: rgb(202, 70, 70);
+  margin: 0;
+  font-size: 12px;
+}
+
+.error {
+  color: rgb(202, 70, 70);
+}
+
 /* Loader */
 
 .loader {

@@ -74,7 +74,8 @@ registerForm.addEventListener("submit", async function (event) {
       );
 
       setTimeout(function () {
-        window.location.href = "../../index.html";
+        // testing the path to see if it works on github pages:
+        window.location.href = "/ca-javascript/index.html";
       }, 2000);
     } else {
       showStatus(status, "Registration failed. Please try again.", "error");
