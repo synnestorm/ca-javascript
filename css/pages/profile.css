@@ -1,3 +1,5 @@
+/* Profile Styling */
+
 .profile-avatar {
   width: 100%;
   max-width: 150px;
@@ -10,6 +12,7 @@
 .profile-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -40,7 +43,7 @@
   padding: 10px 20px;
 }
 
-/* Posts styling */
+/* Posts on profile styling */
 
 #post-container {
   width: 100%;
@@ -88,4 +91,15 @@
   justify-content: flex-end;
   align-items: end;
   gap: 10px;
+}
+
+/* Media Query */
+@media only screen and (max-width: 340px) {
+  .statistics-container {
+    flex-direction: column;
+  }
+  .profile-name,
+  .profile-email {
+    text-align: center;
+  }
 }

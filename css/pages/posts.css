@@ -1,3 +1,5 @@
+/* Styling for all posts page*/
+
 .btn-container {
   margin-top: 100px;
 }
@@ -106,7 +108,7 @@ dialog form {
   padding: 5px 30px;
 }
 
-/* Post.html */
+/* Styling for indivdual post page */
 
 h3 {
   margin-top: 20px;

@@ -1,3 +1,5 @@
+/* Global Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -70,6 +72,8 @@ footer {
   color: var(--color-two);
   text-align: center;
 }
+
+/* Validation forms and status messages */
 
 #status {
   position: relative;
