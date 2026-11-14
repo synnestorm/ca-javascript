@@ -17,9 +17,16 @@ loginForm.addEventListener("submit", async function (event) {
   const success = await loginUser(enteredEmail, enteredPassword);
 
   if (success) {
-    await apiKey();
-    showStatus(status, "Login successful! Redirecting...", "success");
-
+    const keyIsCreated = await apiKey();
+    if (!keyIsCreated) {
+      showStatus(
+        status,
+        "Login successful, but failed to create API Key! Please refresh.",
+        "success",
+      );
+      return;
+    }
+    showStatus(status, "Login successful! Refreshing...", "success");
     setTimeout(function () {
       window.location.href = "pages/posts.html";
     }, 2000);
