@@ -4,12 +4,17 @@ import {
   followProfile,
   unfollowProfile,
 } from "../api/profiles.js";
+import { showLoader, hideLoader } from "../utils/loader.js";
 
+// DOM and URL variables:
 const container = document.getElementById("container");
 const postContainer = document.getElementById("post-container");
+const loader = document.getElementById("loader");
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+const loggedInUser = localStorage.getItem("username");
 
 function showProfile(profile) {
-  const loggedInUser = localStorage.getItem("username");
   if (!profile) {
     container.innerHTML = "Could not show all profiles.";
     return;
@@ -42,6 +47,7 @@ function showProfile(profile) {
   followBtn.type = "button";
   followBtn.className = "follow-btn";
 
+  // Follow/Unfollow button logic:
   let isFollowing =
     profile.followers?.some((follower) => follower.name === loggedInUser) ??
     false;
@@ -82,6 +88,7 @@ function showProfile(profile) {
     }
   });
 
+  // Profile statistics and appending:
   const statistics = document.createElement("div");
   statistics.className = "statistics-container";
 
@@ -99,13 +106,12 @@ function showProfile(profile) {
   statistics.appendChild(followers);
   statistics.appendChild(following);
 
-  container.appendChild(profileContainer);
-  container.appendChild(statistics);
+  profileCard.appendChild(profileContainer);
+  profileCard.appendChild(statistics);
   container.appendChild(profileCard);
 }
 
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name");
+showLoader(loader);
 
 try {
   const username = localStorage.getItem("username");
@@ -122,6 +128,8 @@ try {
 } catch (error) {
   console.error("Error loading profile:", error);
   container.innerHTML = "Something went wrong.";
+} finally {
+  hideLoader(loader);
 }
 
 function showStatistics(label, number) {
@@ -141,7 +149,6 @@ function showStatistics(label, number) {
 }
 
 function showProfilePosts(posts, profileName) {
-  const loggedInUser = localStorage.getItem("username");
   if (posts === false) {
     postContainer.textContent = "Could not load posts.";
     return;
@@ -151,6 +158,7 @@ function showProfilePosts(posts, profileName) {
     return;
   }
   postContainer.innerHTML = "";
+
   posts.forEach((post) => {
     const postCard = document.createElement("div");
     postCard.className = "post-card";
@@ -171,6 +179,7 @@ function showProfilePosts(posts, profileName) {
       const postMedia = document.createElement("img");
       postMedia.className = "post-media";
       postMedia.alt = post.title;
+      // hide broken or invalid image URLs
       postMedia.onerror = () => {
         postMedia.style.display = "none";
       };
@@ -179,9 +188,11 @@ function showProfilePosts(posts, profileName) {
 
       postCard.appendChild(postMedia);
     }
+
     const btnContainer = document.createElement("div");
     btnContainer.className = "btn-container";
 
+    // more button to access edit and delete post:
     if (profileName === loggedInUser) {
       const moreBtn = document.createElement("a");
       moreBtn.className = "button more";

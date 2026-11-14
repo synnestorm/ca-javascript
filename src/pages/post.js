@@ -3,6 +3,7 @@ import { showLoader, hideLoader } from "../utils/loader.js";
 import { showError, clearError } from "../utils/formValidation.js";
 import { showStatus, clearStatus } from "../utils/statusMessage.js";
 
+// Variables:
 const container = document.getElementById("container");
 const editDialog = document.getElementById("edit-post");
 const confirmDelete = document.getElementById("confirm-delete");
@@ -16,6 +17,9 @@ const status = document.querySelectorAll(".status");
 const titleInput = document.getElementById("title");
 const bodyInput = document.getElementById("body");
 const mediaInput = document.getElementById("media");
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
 let currentPost = null;
 
@@ -51,6 +55,7 @@ function showPost(post) {
     postCard.appendChild(postMedia);
   }
 
+  // Edit and Delete buttons on post card
   const btnContainer = document.createElement("div");
   btnContainer.className = "btn-container";
 
@@ -88,7 +93,7 @@ function showPost(post) {
         showStatus(deleteStatus, "Delete failed. Please try again.", "error");
 
         setTimeout(function () {
-          status.textContent = "";
+          clearStatus(deleteStatus);
         }, 2000);
       }
     });
@@ -136,9 +141,6 @@ function showComments(post) {
   }
   container.appendChild(commentSection);
 }
-
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
 
 showLoader(loader);
 

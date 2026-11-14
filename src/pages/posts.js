@@ -3,15 +3,19 @@ import { showError, clearError } from "../utils/formValidation.js";
 import { showLoader, hideLoader } from "../utils/loader.js";
 import { showStatus, clearStatus } from "../utils/statusMessage.js";
 
+// Variables:
 const container = document.getElementById("container");
 const loader = document.getElementById("loader");
 const createForm = document.getElementById("create-form");
+const title = document.getElementById("title");
+const body = document.getElementById("body");
+const media = document.getElementById("media");
 const status = document.getElementById("status");
 const titleError = document.getElementById("titleError");
 const searchInput = document.getElementById("search");
+const loggedInUser = localStorage.getItem("username");
 
 function showPosts(posts) {
-  const loggedInUser = localStorage.getItem("username");
   if (!posts || posts.length === 0) {
     container.innerHTML = "Could not show all posts.";
     return;
@@ -51,6 +55,7 @@ function showPosts(posts) {
       const postMedia = document.createElement("img");
       postMedia.className = "post-media";
       postMedia.alt = post.title;
+      // hide broken or invalid image URLs to prevent console errors when searching posts
       postMedia.onerror = () => {
         postMedia.style.display = "none";
       };
@@ -96,7 +101,7 @@ try {
   hideLoader(loader);
 }
 
-// creating post and validation
+// Creating a post and validation
 
 function validateTitle() {
   const value = title.value.trim();
