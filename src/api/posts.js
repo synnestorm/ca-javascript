@@ -1,11 +1,11 @@
-const API_BASE_URL = "https://v2.api.noroff.dev";
+import { API_BASE_URL } from "../config.js";
 
 /**
- * Fetches all posts from the Noroff API
+ * Fetches all posts from the Noroff API.
  *
  * @async
  * @function fetchPosts
- * @returns {Promise<Array|boolean>} - Returns an array of posts if it succeeds, or false if it fails
+ * @returns {Promise<Array|boolean>} - Returns an array of posts if it succeeds, or false if it fails.
  */
 export async function fetchPosts() {
   const postsUrl = `${API_BASE_URL}/social/posts?_author=true&_comments=true`;
@@ -28,12 +28,12 @@ export async function fetchPosts() {
 }
 
 /**
- * Fetches a single post from the Noroff API
+ * Fetches a single post from the Noroff API.
  *
  * @async
  * @function fetchSinglePost
- * @param {string} id - The spesific ID of the post
- * @returns {Promise<Object|boolean>} - Returns the post object, or false if it fails
+ * @param {string} id - The spesific ID of the post.
+ * @returns {Promise<Object|boolean>} - Returns the post object, or false if it fails.
  */
 export async function fetchSinglePost(id) {
   const singlePostUrl = `${API_BASE_URL}/social/posts/${id}?_author=true&_comments=true&_reactions=true`;
@@ -55,6 +55,16 @@ export async function fetchSinglePost(id) {
   }
 }
 
+/**
+ * Creates a post to the Noroff API.
+ *
+ * @async
+ * @function createPost
+ * @param {string} title - The title of the post.
+ * @param {string} body - The optional body of the post.
+ * @param {string} media - The optional URL of the media for the post.
+ * @returns {Promise<boolean>} - Returns true if post is created and succeeds, or false if it fails.
+ */
 export async function createPost(title, body, media) {
   const createPostUrl = `${API_BASE_URL}/social/posts`;
   try {
@@ -81,6 +91,14 @@ export async function createPost(title, body, media) {
   }
 }
 
+/**
+ * Deletes a post through the Noroff API.
+ *
+ * @async
+ * @function deletePost
+ * @param {string} id - The ID of the post to delete.
+ * @returns {Promise<boolean>} - Returns true if post is deleted successfully, or false if it fails.
+ */
 export async function deletePost(id) {
   const createDeleteUrl = `${API_BASE_URL}/social/posts/${id}`;
   try {
@@ -102,6 +120,17 @@ export async function deletePost(id) {
   }
 }
 
+/**
+ * Updates a post through the Noroff API.
+ *
+ * @async
+ * @function updatePost
+ * @param {string} id - The ID of the post to update.
+ * @param {string} title - The title of the post to update.
+ * @param {string} body - The body of the post to update.
+ * @param {string} media - The media URL of the post to update.
+ * @returns {Promise<boolean>} - Returns true if post is updated successfully, or false if it fails.
+ */
 export async function updatePost(id, title, body, media) {
   const updateUrl = `${API_BASE_URL}/social/posts/${id}`;
   try {
@@ -141,8 +170,7 @@ export async function searchPost(query) {
       throw new Error(`Error! Status: ${response.status}`);
     }
     const data = await response.json();
-    posts = data.data;
-    return posts;
+    return data.data;
   } catch (error) {
     console.error("Failed to search posts!", error);
     return false;
