@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://v2.api.noroff.dev";
+import { API_BASE_URL } from "../config.js";
 
 /**
  * Fetches a single profile, including the user's followers from the Noroff API
