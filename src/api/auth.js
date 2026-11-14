@@ -31,8 +31,16 @@ export async function loginUser(email, password) {
   }
 }
 
-// API async function, register authentication:
-
+/**
+ * Sends user data to Noroff API
+ *
+ * @async
+ * @function registerUser
+ * @param {string} username - The user's username
+ * @param {string} email - The user's email address
+ * @param {string} password - The user's password
+ * @returns {Promise<boolean>} Returns true if registration succeeds or false if it fails
+ */
 export async function registerUser(username, email, password) {
   try {
     const response = await fetch(registerUrl, {
@@ -49,7 +57,6 @@ export async function registerUser(username, email, password) {
     if (!response.ok) {
       return false;
     }
-    const data = await response.json();
     return true;
   } catch (error) {
     console.error("Failed to fetch authentication.", error);
