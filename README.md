@@ -41,6 +41,10 @@ git clone [https://github.com/synnestorm/ca-javascript]
 
 Open the project with Live Server or your preferred local development server.
 
+## AI Log & Statment
+
+[**AI_LOG.md**](https://github.com/synnestorm/ca-javascript/blob/main/docs/AI_LOG.md)
+
 ## Author
 
 Created by [**synnestorm**](https://github.com/synnestorm)
