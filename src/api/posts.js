@@ -1,9 +1,14 @@
 const API_BASE_URL = "https://v2.api.noroff.dev";
-const postsUrl = `${API_BASE_URL}/social/posts?_author=true&_comments=true`;
-let posts = [];
-// API function, fetch posts:
 
+/**
+ * Fetches all posts from the Noroff API
+ *
+ * @async
+ * @function fetchPosts
+ * @returns {Promise<Array|boolean>} - Returns an array of posts if it succeeds, or false if it fails
+ */
 export async function fetchPosts() {
+  const postsUrl = `${API_BASE_URL}/social/posts?_author=true&_comments=true`;
   try {
     const response = await fetch(postsUrl, {
       headers: {
@@ -15,14 +20,21 @@ export async function fetchPosts() {
       throw new Error(`Error! Status: ${response.status}`);
     }
     const data = await response.json();
-    posts = data.data;
-    return posts;
+    return data.data;
   } catch (error) {
     console.error("Failed to fetch posts!", error);
     return false;
   }
 }
 
+/**
+ * Fetches a single post from the Noroff API
+ *
+ * @async
+ * @function fetchSinglePost
+ * @param {string} id - The spesific ID of the post
+ * @returns {Promise<Object|boolean>} - Returns the post object, or false if it fails
+ */
 export async function fetchSinglePost(id) {
   const singlePostUrl = `${API_BASE_URL}/social/posts/${id}?_author=true&_comments=true&_reactions=true`;
   try {
