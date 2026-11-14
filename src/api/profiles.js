@@ -1,5 +1,13 @@
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
+/**
+ * Fetches a single profile, including the user's followers from the Noroff API
+ *
+ * @async
+ * @function fetchProfile
+ * @param {string} name - The username of the profile to fetch
+ * @returns {Promise<Object|boolean>} - Returns a users profile if it succeeds, or false if it fails
+ */
 export async function fetchProfile(name) {
   const profilesUrl = `${API_BASE_URL}/social/profiles/${name}?_followers=true`;
   try {
@@ -20,6 +28,14 @@ export async function fetchProfile(name) {
   }
 }
 
+/**
+ * Fetches a user's posts from the Noroff API
+ *
+ * @async
+ * @function fetchProfilePosts
+ * @param {string} name - The username of the profile whose posts to fetch
+ * @returns {Promise<Array|boolean>} - Returns an array of the users posts if it succeeds, and false if it fails
+ */
 export async function fetchProfilePosts(name) {
   const profilePostsUrl = `${API_BASE_URL}/social/profiles/${name}/posts`;
   try {
