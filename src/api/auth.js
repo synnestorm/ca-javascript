@@ -1,21 +1,17 @@
-// API URLs:
-
-const API_BASE_URL = "https://v2.api.noroff.dev";
-const loginUrl = `${API_BASE_URL}/auth/login`;
-const registerUrl = `${API_BASE_URL}/auth/register`;
-const apiKeyUrl = `${API_BASE_URL}/auth/create-api-key`;
+import { API_BASE_URL } from "../config.js";
 
 /**
- * Logs in a user by sending their data to Noroff API
- * Stores authentication token and username in localStorage
+ * Logs in a user by sending their data to Noroff API.
+ * Stores authentication token and username in localStorage.
  *
  * @async
  * @function loginUser
- * @param {string} email - The user's email address
- * @param {string} password - The user's password
- * @returns {Promise<boolean>} Returns true if login attempt succeeds or false if it fails
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<boolean>} - Returns true if login attempt succeeds or false if it fails.
  */
 export async function loginUser(email, password) {
+  const loginUrl = `${API_BASE_URL}/auth/login`;
   try {
     const response = await fetch(loginUrl, {
       method: "POST",
@@ -41,16 +37,17 @@ export async function loginUser(email, password) {
 }
 
 /**
- * Registers a user by sending their data to Noroff API
+ * Registers a user by sending their data to Noroff API.
  *
  * @async
  * @function registerUser
- * @param {string} username - The user's username
- * @param {string} email - The user's email address
- * @param {string} password - The user's password
- * @returns {Promise<boolean>} Returns true if registration succeeds or false if it fails
+ * @param {string} username - The user's username.
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<boolean>} - Returns true if registration succeeds or false if it fails.
  */
 export async function registerUser(username, email, password) {
+  const registerUrl = `${API_BASE_URL}/auth/register`;
   try {
     const response = await fetch(registerUrl, {
       method: "POST",
@@ -73,9 +70,15 @@ export async function registerUser(username, email, password) {
   }
 }
 
-// create API key
-
+/**
+ * Creates an API Key for the Noroff API and stores it in localStorage.
+ *
+ * @async
+ * @function apiKey
+ * @returns {Promise<string|boolean>} - Returns an API key if it succeeds, and false if it fails.
+ */
 export async function apiKey() {
+  const apiKeyUrl = `${API_BASE_URL}/auth/create-api-key`;
   try {
     const response = await fetch(apiKeyUrl, {
       method: "POST",
