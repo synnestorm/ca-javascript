@@ -35,7 +35,10 @@ function showPosts(posts) {
 
     const authorLink = document.createElement("a");
     authorLink.className = "author-link";
-    authorLink.href = `profile.html?name=${encodeURIComponent(post.author.name)}`;
+    // only create a profile link if the post has an author, if not use "#"
+    authorLink.href = post.author?.name
+      ? `profile.html?name=${encodeURIComponent(post.author.name)}`
+      : "#";
 
     const postAuthor = document.createElement("p");
     postAuthor.className = "post-author";
