@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Connect to .koble to interact with your friends!">
+    <meta name="description" content="Connect to .koble to interact with your friends! Check out your profile.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -23,15 +23,16 @@
 
 <body>
     <header>
-        <div class="h-container">
+        <nav class="h-container">
             <a href="posts.html">
                 <h1>.koble</h1>
             </a>
             <ul>
-                <li><a href="profile.html"><i class="fa-regular fa-user"></i></a></li>
-                <li><a href="../index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                <li><a href="profile.html" aria-label="Profile"><i class="fa-regular fa-user"></i></a></li>
+                <li><a href="../index.html" aria-label="Log out"><i
+                            class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
             </ul>
-        </div>
+        </nav>
     </header>
     <main>
         <div id="container"></div>
