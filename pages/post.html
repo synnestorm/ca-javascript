@@ -27,8 +27,6 @@
             <a href="posts.html">
                 <h1>.koble</h1>
             </a>
-            <input id="search" name="search" type="text" class="search" placeholder="What are you looking for?"
-                aria-label="Search Posts">
             <ul>
                 <li><a href="profile.html" aria-label="Profile"><i class="fa-regular fa-user"></i></a></li>
                 <li><a href="../index.html" aria-label="Log out"><i
@@ -41,9 +39,11 @@
         <div>
             <dialog id="del-post">
                 <p class="status"></p>
-                <p>Are you sure you want to delete post?</p>
-                <button commandfor="del-post" command="close" id="cancel-btn">Cancel</button>
-                <button type="button" id="confirm-delete">Delete</button>
+                <p class="confirm-message">Are you sure you want to delete post?</p>
+                <div class="delete-container">
+                    <button commandfor="del-post" command="close" id="cancel-btn">Cancel</button>
+                    <button type="button" id="confirm-delete">Delete</button>
+                </div>
             </dialog>
             <dialog id="edit-post">
                 <form id="update-form">
