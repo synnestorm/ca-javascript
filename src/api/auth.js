@@ -5,7 +5,16 @@ const loginUrl = `${API_BASE_URL}/auth/login`;
 const registerUrl = `${API_BASE_URL}/auth/register`;
 const apiKeyUrl = `${API_BASE_URL}/auth/create-api-key`;
 
-// API async function, login authentication:
+/**
+ * Logs in a user by sending their data to Noroff API
+ * Stores authentication token and username in localStorage
+ *
+ * @async
+ * @function loginUser
+ * @param {string} email - The user's email address
+ * @param {string} password - The user's password
+ * @returns {Promise<boolean>} Returns true if login attempt succeeds or false if it fails
+ */
 export async function loginUser(email, password) {
   try {
     const response = await fetch(loginUrl, {
@@ -32,7 +41,7 @@ export async function loginUser(email, password) {
 }
 
 /**
- * Sends user data to Noroff API
+ * Registers a user by sending their data to Noroff API
  *
  * @async
  * @function registerUser
