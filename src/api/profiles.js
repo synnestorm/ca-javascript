@@ -56,6 +56,14 @@ export async function fetchProfilePosts(name) {
   }
 }
 
+/**
+ * Follows another user's profile through the Noroff API
+ *
+ * @async
+ * @function followProfile
+ * @param {string} name - The username of the profile you want to follow
+ * @returns {Promise<boolean>} - Returns true if following a profile succeeds, or false if it fails
+ */
 export async function followProfile(name) {
   const followProfileUrl = `${API_BASE_URL}/social/profiles/${name}/follow`;
   try {
@@ -76,6 +84,14 @@ export async function followProfile(name) {
   }
 }
 
+/**
+ * Unfollows another user's profile through the Noroff API
+ *
+ * @async
+ * @function unfollowProfile
+ * @param {string} name - The username of the profile you want to unfollow
+ * @returns {Promise<boolean>} - Returns true if unfollowing a profile succeeds, or false if it fails
+ */
 export async function unfollowProfile(name) {
   const unfollowProfileUrl = `${API_BASE_URL}/social/profiles/${name}/unfollow`;
   try {
