@@ -119,6 +119,10 @@ function validateForm() {
 
 createForm.addEventListener("submit", async function (event) {
   event.preventDefault();
+
+  const createBtn = document.getElementById("create");
+  createBtn.disabled = true;
+
   clearStatus(status);
 
   if (validateForm()) {
@@ -145,7 +149,10 @@ createForm.addEventListener("submit", async function (event) {
       }, 2000);
     } else {
       showStatus(status, "Failed to create post. Please try again", "error");
+      createBtn.disabled = false;
     }
+  } else {
+    createBtn.disabled = false;
   }
 });
 
