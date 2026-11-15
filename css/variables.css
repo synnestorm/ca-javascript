@@ -1,12 +1,12 @@
 :root {
   /* Colors */
-  --bg-color: rgb(17, 25, 22);
-  --card-color: rgb(28, 39, 34);
-  --border-color: rgb(52, 65, 58);
-  --font-one: rgb(240, 241, 234);
-  --font-two: rgb(169, 185, 174);
-  --button-one: rgb(199, 127, 99);
-  --button-two: rgb(64, 86, 74);
+  --bg-color: rgb(11, 13, 16);
+  --card-color: rgb(19, 22, 27);
+  --border-color: rgb(41, 47, 57);
+  --font-one: rgb(240, 243, 246);
+  --font-two: rgb(140, 150, 165);
+  --button-one: rgb(95, 158, 204);
+  --button-two: rgb(30, 35, 44);
   /* Fonts */
   --header: "Manrope";
   --text: "Inter";
