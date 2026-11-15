@@ -9,7 +9,7 @@ This is my submission for my course assignment Javascript 2: A social media appl
 
 ## Description
 
-In this assignment, I was tasked to build the front end of a social media application using JavaScript and a provided API. The application must allow users to register, log in, view posts, and perform CRUD operations on their own posts. It must also include features such as viewing profiles, following or unfollowing users, commenting on posts, and reacting to a post with an emoji.
+In this assignment, I was tasked to build the front end of a social media application using JavaScript and a provided API. The application must allow users to register, log in, view posts, and perform CRUD operations on their own posts. It must also include features such as viewing profiles, following or unfollowing users, and see comment section.
 
 ## Demo Log in
 
