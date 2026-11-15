@@ -11,6 +11,10 @@ const status = document.getElementById("status");
 
 loginForm.addEventListener("submit", async function (event) {
   event.preventDefault();
+
+  const submitBtn = document.getElementById("login-btn");
+  submitBtn.disabled = true;
+
   clearStatus(status);
   const enteredEmail = email.value.trim();
   const enteredPassword = password.value;
@@ -24,13 +28,15 @@ loginForm.addEventListener("submit", async function (event) {
         "Login successful, but failed to create API Key! Please refresh.",
         "success",
       );
+      submitBtn.disabled = false;
       return;
     }
-    showStatus(status, "Login successful! Refreshing...", "success");
+    showStatus(status, "Login successful! Redirecting...", "success");
     setTimeout(function () {
       window.location.href = "pages/posts.html";
     }, 2000);
   } else {
     showStatus(status, "Invalid email or password", "error");
+    submitBtn.disabled = false;
   }
 });

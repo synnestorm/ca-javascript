@@ -57,6 +57,10 @@ function validateForm() {
 
 registerForm.addEventListener("submit", async function (event) {
   event.preventDefault();
+
+  const submitBtn = document.getElementById("register-btn");
+  submitBtn.disabled = true;
+
   clearStatus(status);
 
   if (validateForm()) {
@@ -79,6 +83,9 @@ registerForm.addEventListener("submit", async function (event) {
       }, 2000);
     } else {
       showStatus(status, "Registration failed. Please try again.", "error");
+      submitBtn.disabled = false;
     }
+  } else {
+    submitBtn.disabled = false;
   }
 });
