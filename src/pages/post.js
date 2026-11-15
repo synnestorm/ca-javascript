@@ -82,6 +82,7 @@ function showPost(post) {
     });
 
     confirmDelete.addEventListener("click", async () => {
+      confirmDelete.disabled = true;
       const success = await deletePost(post.id);
       if (success) {
         showStatus(deleteStatus, "Post deleted! Refreshing...", "success");
@@ -91,7 +92,7 @@ function showPost(post) {
         }, 2000);
       } else {
         showStatus(deleteStatus, "Delete failed. Please try again.", "error");
-
+        confirmDelete.disabled = false;
         setTimeout(function () {
           clearStatus(deleteStatus);
         }, 2000);
@@ -179,6 +180,10 @@ function validateForm() {
 
 updateForm.addEventListener("submit", async function (event) {
   event.preventDefault();
+
+  const confirmEditBtn = document.getElementById("confirm-edit");
+  confirmEditBtn.disabled = true;
+
   clearStatus(status);
 
   if (validateForm()) {
@@ -211,6 +216,9 @@ updateForm.addEventListener("submit", async function (event) {
         "Failed to update post. Please try again.",
         "error",
       );
+      confirmEditBtn.disabled = false;
     }
+  } else {
+    confirmEditBtn.disabled = false;
   }
 });
